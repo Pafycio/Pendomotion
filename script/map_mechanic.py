@@ -1,7 +1,6 @@
 __author__ = 'Pawel'
 
 
-
 class MapMechanic(object):
     def __init__(self, (x, y)):
         self.x = x*3

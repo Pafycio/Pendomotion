@@ -6,12 +6,12 @@ from pygame import transform as trans
 
 
 class Train(object):
-    def __init__(self,fin="A", val=0, station=None):
-        #self.id = num
+    def __init__(self, fin=0, val=0, station=None):
         self.img = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\train_1.png"
         self.speed = 1
         self.finish = fin
         self.if_moving = True
+        self.if_crash = False
         self.direction = station.rotation
         self.value = val
         self.x = station.x
@@ -37,3 +37,6 @@ class Train(object):
         image = img.load(self.img).convert_alpha()
         image = trans.rotate(image, self.direction * (-90))
         return image
+
+    def get_value(self):
+        return self.value

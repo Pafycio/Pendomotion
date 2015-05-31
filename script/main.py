@@ -2,7 +2,6 @@ __author__ = 'Pawel'
 
 import pygame
 from map import Map
-from map_mechanic import MapMechanic
 black = 0, 0, 0
 white = 255, 255, 255
 red = 255, 0, 0
@@ -36,27 +35,44 @@ class App():
             self.map.part_on_click(pygame.mouse.get_pos())
 
             #print "Mouse pos:"+str(pygame.mouse.get_pos())+"\n"
-            self.map.print_mechanic()
-            print "#"*60
+            #self.map.print_mechanic()
+            #print "#"*60
 
     def on_loop(self):
         self.map.move_trains()
 
+        self.map.check_colision()
+
     def on_render(self):
+        self.score_font = pygame.font.Font(None, 36)
+        self.map_font = pygame.font.Font(None, 20)
         self._display_surf.fill(black)
         for col in range(self.map.y):
             for row in range(0, self.map.x):
                 image = self.map.get_image((col, row))
                 self._display_surf.blit(image, (col*64, row*64))
+                if self.map.get_id((col, row)) == 9:
+
+                    text = self.score_font.render(str(self.map.get_station_num((col, row))), 1, white)
+                    self._display_surf.blit(text, (col*64, row*64))
+
         for i in self.map.trains:
-            image = i.get_image()
-            self._display_surf.blit(image, (i.x*64, i.y*64))
+            if i is not None:
+                image = i.get_image()
+                self._display_surf.blit(image, (i.x*64, i.y*64))
+                text = self.score_font.render(str(i.finish), 1, white)
+                self._display_surf.blit(text, (i.x*64, i.y*64))
+
+        score_text = self.score_font.render("SCORE : "+str(self.map.map_score), 1, white)
+
+        self._display_surf.blit(score_text, (20, 530))
+
         self.clock.tick(5)
         #self.map.mechanic.bin_display()
 
         pygame.display.flip()
 
-    def on_cleanup(self):
+    def on_clean_up(self):
         pygame.quit()
 
     def on_execute(self):
@@ -70,7 +86,7 @@ class App():
             self.on_loop()
             self.on_render()
 
-        self.on_cleanup()
+        self.on_clean_up()
 
 if __name__ == "__main__":
     theApp = App()

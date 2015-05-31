@@ -23,6 +23,7 @@ class Part(object):
         self.design = 0
         self.train_on = False
         self.image = ImagesControl(b_t)
+        self.station_num = None
         if b_t == 0 or b_t == 1 or b_t == 2:
             self.state = 0
             self.max_state = 1

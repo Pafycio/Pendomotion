@@ -13,9 +13,9 @@ class Map(object):
         self.mechanic = None
         self.trains = []
         self.stations = []
-        #self.map_array = None
         self.x = 0
         self.y = 0
+        self.map_score = 0
 
     def load_map(self):
         level_file = open('maps/level_'+self.level_id, "r")
@@ -40,8 +40,12 @@ class Map(object):
                 #state = self.map_array[i][j].state
                 k += 1
 
-        self.add_train(0)
-        self.add_train(1)
+        self.add_train(3, 1, 1)
+        self.add_train(3, 2, 2)
+        self.add_train(3, 0, 3)
+      #  self.add_train(3, 1, 1)
+       # self.add_train(3, 0, 0)
+      #  self.add_train(3, 2, 2)
 
     def print_mechanic(self):
         for i in xrange(self.mechanic.x):
@@ -75,11 +79,35 @@ class Map(object):
         image = trans.rotate(image, self.mechanic.map_array[x][y].rotation * (-90))
         return image
 
+    def get_id(self, (x, y)):
+        (x, y) = self.mechanic.get_center((x, y))
+        return self.mechanic.map_array[x][y].id
+
+    def get_station_num(self, (x, y)):
+        (x, y) = self.mechanic.get_center((x, y))
+        return self.mechanic.map_array[x][y].station_num
+
     def add_station(self, part):
+        part.station_num = int(len(self.stations))
         self.stations.append(part)
 
-    def add_train(self, station_num=0):
-        self.trains.append(Train("A", 100, self.stations[station_num]))
+    def add_train(self, fin, station_num, val):
+        self.trains.append(Train(fin, val, self.stations[station_num]))
+
+    def delete_train(self, train):
+        self.trains.remove(train)
+
+    def check_colision(self):
+        for i in self.trains:
+            for j in self.trains:
+                if i != j and i.x == j.x and i.y == j.y:
+                    self.delete_train(i)
+                    self.delete_train(j)
+                    print "CRASH "+str(i.value)+" "+str(j.value)
+
+
+
+
 
     def move_trains(self):
         for i in self.trains:
@@ -97,8 +125,15 @@ class Map(object):
                     curr.set_pos(cx, cy-1)
                     curr.change_direction(-1)
                 elif self.mechanic.map_array[x][y].id == 9:
-                    curr.set_pos(cx, cy-1)
-                    curr.change_direction(2)
+                    if self.mechanic.map_array[x][y].station_num == curr.finish:
+                        curr.set_pos(cx, cy-1)
+                        self.map_score += curr.get_value()
+                        self.delete_train(curr)
+                        print "Jeste w domku"
+
+                    else:
+                        curr.set_pos(cx, cy-1)
+                        curr.change_direction(2)
                 else:
                     #print "MH ?! 0"
                     pass
@@ -114,16 +149,20 @@ class Map(object):
                     curr.set_pos(cx+1, cy)
                     curr.change_direction(-1)
                 elif self.mechanic.map_array[x][y].id == 9:
-                    curr.set_pos(cx+1, cy)
-                    curr.change_direction(2)
+                    if self.mechanic.map_array[x][y].station_num == curr.finish:
+                        curr.set_pos(cx+1, cy)
+                        self.map_score += curr.get_value()
+                        self.delete_train(curr)
+                        print "Jeste w domku"
+                    else:
+                        curr.set_pos(cx+1, cy)
+                        curr.change_direction(2)
                 else:
                     #print "MH ?! 1"
                     pass
 
             elif curr.direction == 2:
                 x, y = self.mechanic.get_center((cx, cy+1))
-                print x
-                print y
                 if self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x][y+1] == 1:  # prosto
                     curr.set_pos(cx, cy+1)
                 elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w prawio
@@ -133,8 +172,14 @@ class Map(object):
                     curr.set_pos(cx, cy+1)
                     curr.change_direction(-1)
                 elif self.mechanic.map_array[x][y].id == 9:
-                    curr.set_pos(cx, cy+1)
-                    curr.change_direction(2)
+                    if self.mechanic.map_array[x][y].station_num == curr.finish:
+                        curr.set_pos(cx, cy+1)
+                        self.map_score += curr.get_value()
+                        self.delete_train(curr)
+                        print "Jeste w domku"
+                    else:
+                        curr.set_pos(cx, cy+1)
+                        curr.change_direction(2)
                 else:
                     #print "HM ?! 2"
                     pass
@@ -150,8 +195,14 @@ class Map(object):
                     curr.set_pos(cx-1, cy)
                     curr.change_direction(-1)
                 elif self.mechanic.map_array[x][y].id == 9:
-                    curr.set_pos(cx-1, cy)
-                    curr.change_direction(2)
+                    if self.mechanic.map_array[x][y].station_num == curr.finish:
+                        curr.set_pos(cx-1, cy)
+                        self.map_score += curr.get_value()
+                        self.delete_train(curr)
+                        print "Jeste w domku"
+                    else:
+                        curr.set_pos(cx-1, cy)
+                        curr.change_direction(2)
                 else:
                     #print "MH ?! 3"
                     pass
