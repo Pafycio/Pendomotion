@@ -48,6 +48,13 @@ class Part(object):
     def get_rotation(self):
         return self.rotation
 
+    def train_enter(self):
+        if not self.train_on:
+            self.train_on = True
+
+    def train_exit(self):
+        self.train_on = False
+
     def get_direction(self):
         pass
         #  if self.id ==

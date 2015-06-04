@@ -40,8 +40,8 @@ class App():
 
     def on_loop(self):
         self.map.move_trains()
-
-        self.map.check_colision()
+        self.map.rand_train()
+        #self.map.check_colision()
 
     def on_render(self):
         self.score_font = pygame.font.Font(None, 36)
@@ -57,23 +57,35 @@ class App():
                     self._display_surf.blit(text, (col*64, row*64))
 
         for i in self.map.trains:
-            if i is not None:
-                image = i.get_image()
-                self._display_surf.blit(image, (i.x*64, i.y*64))
-                text = self.score_font.render(str(i.finish), 1, white)
-                self._display_surf.blit(text, (i.x*64, i.y*64))
+            if i.if_moving:
+                if i.direction == 0:
+                    self.draw_train(i, 0, -1)
+                elif i.direction == 1:
+                    self.draw_train(i, 1, 0)
+                elif i.direction == 2:
+                    self.draw_train(i, 0, 1)
+                elif i.direction == 3:
+                    self.draw_train(i, -1, 0)
+            else:
+                self.draw_train(i, 0, 0)
 
         score_text = self.score_font.render("SCORE : "+str(self.map.map_score), 1, white)
 
         self._display_surf.blit(score_text, (20, 530))
 
-        self.clock.tick(5)
+        self.clock.tick(60)
         #self.map.mechanic.bin_display()
 
         pygame.display.flip()
 
     def on_clean_up(self):
         pygame.quit()
+
+    def draw_train(self, train, move_x, move_y):
+        self._display_surf.blit(train.get_image(), (train.x*64+(move_x*train.get_animation()), train.y*64+(move_y*train.get_animation())))
+        text = self.score_font.render(str(train.finish), 1, white)
+        self._display_surf.blit(text, (train.x*64+(move_x*train.get_animation()), train.y*64+(move_y*train.get_animation())))
+        train.animation_step()
 
     def on_execute(self):
         if self.on_init():
