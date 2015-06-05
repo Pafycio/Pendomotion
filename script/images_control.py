@@ -1,27 +1,37 @@
 __author__ = 'Pawel'
+
+import os,sys
+
 '''
 Tu lepiej by bylo zmienic na listy  !
 w przypadku gdy obrazek bedzie mial wiecej niz 2 stany
 
 '''
 ''' GLOBAL '''
-path_0 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\blank.png"
-path_1 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\straight.png"
-path_2 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\curve.png"
-path_3 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\straight_right_2.png"
-path_3_1 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\straight_right_1.png"
-path_4 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\straight_left_1.png"
-path_4_1 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\straight_left_2.png"
-path_5 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\cross_2.png"
-path_5_1 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\cross_1.png"
-path_9_1 = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\station_1.png"
-path_t = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\train_1.png"
-no_pic = r"C:\Users\Pawel\PycharmProjects\Pendomotion\script\images\none.png"
+dir = os.path.dirname(__file__)
+
+path_0 = os.path.join(dir ,r"images\blank.png")
+path_1 = os.path.join(dir ,r"images\straight.png")
+path_2 = os.path.join(dir ,r"images\curve.png")
+path_3 = os.path.join(dir ,r"images\straight_right_2.png")
+path_3_1 = os.path.join(dir ,r"images\straight_right_1.png")
+path_4 = os.path.join(dir ,r"images\straight_left_1.png")
+path_4_1 = os.path.join(dir ,r"images\straight_left_2.png")
+path_5 = os.path.join(dir ,r"images\cross_2.png")
+path_5_1 = os.path.join(dir ,r"images\cross_1.png")
+path_9_1 = os.path.join(dir ,r"images\station_1.png")
+path_t = os.path.join(dir ,r"images\train_1.png")
+no_pic = os.path.join(dir ,r"images\none.png")
 
 
 class ImagesControl(object):
-    def __init__(self, b_t):
-        self.t = b_t
+    """Image Control Class"""
+    def __init__(self, block_type):
+        """
+        :param block_type:
+        :return:
+        """
+        self.t = block_type
         self.path_state_1 = no_pic
         self.path_state_2 = no_pic
         if self.t == 0:
@@ -44,6 +54,11 @@ class ImagesControl(object):
             self.path_state_2 = path_9_1
 
     def get_by_state(self, state):
+        """
+        Return path to image on state
+        :param state:
+        :return:
+        """
         if state == 0:
             return self.path_state_1
         elif state == 1:
@@ -52,4 +67,8 @@ class ImagesControl(object):
             return no_pic
 
     def get_image_list(self):
+        """
+        List of paths to images
+        :return:
+        """
         return [self.path_state_1, self.path_state_2]

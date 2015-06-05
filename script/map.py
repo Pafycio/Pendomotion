@@ -9,23 +9,36 @@ from random import randint
 
 
 class Map(object):
-    def __init__(self, l_id):
-        self.level_id = l_id
+    """
+    Map Class
+    """
+    def __init__(self, level_id):
+        """
+        :param level_id:
+        :return:
+        """
+        self.level_id = level_id
         self.mechanic = None
         self.trains = []
         self.stations = []
         self.x = 0
         self.y = 0
         self.map_score = 0
+        self.crash = 0
 
     def load_map(self):
+        """
+        Load map from file
+        Create Map Mechanic
+        Create list of stations
+        :return:
+        """
         level_file = open('maps/level_'+self.level_id, "r")
         xy = level_file.readline().split()
         self.x = int(xy[1])
         self.y = int(xy[0])
         print "Load map size "+str(self.x) + " " + str(self.y)
         map_parts = [i.rstrip(r"\n*") for i in level_file]
-        #self.map_array = [[Part(0, 0) for i in xrange(self.x)] for j in xrange(self.y)]
         self.mechanic = MapMechanic((self.x, self.y))
         k = 0
         for j in xrange(self.x):
@@ -37,17 +50,24 @@ class Map(object):
                 self.mechanic.add_at((i, j), new_part)
                 if new_part.id == 9:
                     self.add_station(new_part)
-
-                #state = self.map_array[i][j].state
                 k += 1
 
     def print_mechanic(self):
+        """
+        Print Mechanic array
+        :return:
+        """
         for i in xrange(self.mechanic.x):
             for j in xrange(self.mechanic.y):
                 print str(self.mechanic.map_array[j][i])+"",
             print
 
     def part_on_click(self, (x, y)):
+        """
+        Cound i, j
+        Run metode on Part change_state((i, j))
+        :return:
+        """
         if x >= 640 or y >= 512:
             pass
         else:
@@ -67,10 +87,14 @@ class Map(object):
         #  print "Mechanic array:"+str(self.mechanic.get_center((i, j)))
 
     def rand_train(self):
+        """
+        Random generating trains with rand start and rand end
+        :return:
+        """
         start_statnion = randint(0, len(self.stations)-1)
         finish_statnion = randint(0, len(self.stations)-1)
         value = 100
-        gen_new = randint(0, 1000)
+        gen_new = randint(0, 10000)
         if len(self.trains) == 0:
             self.add_train(start_statnion, finish_statnion, value)
         elif len(self.trains) == 1 and gen_new <= 100:
@@ -79,6 +103,10 @@ class Map(object):
             self.add_train(start_statnion, finish_statnion, value)
 
     def get_image(self, (x, y)):
+        """
+        Get image with set rotation
+        :return:
+        """
         (x, y) = self.mechanic.get_center((x, y))
         path = self.mechanic.map_array[x][y].get_image_path()
         image = img.load(path).convert_alpha()
@@ -86,30 +114,67 @@ class Map(object):
         return image
 
     def get_id(self, (x, y)):
+        """
+        Get block type on x,y
+        :return:
+        """
         (x, y) = self.mechanic.get_center((x, y))
         return self.mechanic.map_array[x][y].id
 
     def get_station_num(self, (x, y)):
+        """
+        Set station number on x,y
+        :return:
+        """
         (x, y) = self.mechanic.get_center((x, y))
         return self.mechanic.map_array[x][y].station_num
 
     def add_station(self, part):
+        """
+        Add station to List
+        :param part:
+        :return:
+        """
         part.station_num = int(len(self.stations))
         self.stations.append(part)
 
     def add_train(self, start, finish, value):
+        """
+        Add train to List
+        :param start:
+        :param finish:
+        :param value:
+        :return:
+        """
         self.trains.append(Train(self.stations[start], finish, value))
 
     def delete_train(self, train):
+        """
+        Delete train from List
+        :param train:
+        :return:
+        """
         self.trains.remove(train)
 
     def t_enter(self, (x, y)):
+        """
+        Train enter on part x,y
+        :return:
+        """
         self.mechanic.map_array[x][y].train_enter()
 
     def t_exit(self, (x, y)):
+        """
+        Train exit from part x,y
+        :return:
+        """
         self.mechanic.map_array[x][y].train_exit()
 
-    def check_colision(self):
+    def check_collision(self):
+        """
+        Iterate on trains List and check collision
+        :return:
+        """
         for i in self.trains:
             for j in self.trains:
                 if i != j and i.x == j.x and i.y == j.y:
@@ -117,11 +182,21 @@ class Map(object):
                     self.delete_train(j)
 
     def move_to_pos(self, train, (x, y), direction=0):
+        """
+        Move train to position x,y and change direction
+        :param train:
+        :param direction:
+        :return:
+        """
         train.if_moving = True
         train.set_pos(x, y)
         train.change_direction(direction)
 
     def move_trains(self):
+        """
+        Check posibillities and move all trains forward
+        :return:
+        """
         for i in self.trains:
             if not i.if_moving:
                 curr = i
@@ -262,4 +337,4 @@ class Map(object):
                         print "test"
                         curr.if_moving = False
                         curr.can_move = False
-                self.check_colision()
+                self.check_collision()

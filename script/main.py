@@ -14,6 +14,10 @@ margin = 0
 
 class App():
     def __init__(self):
+        """
+        init game
+        :return:
+        """
         self._running = True
         self._display_surf = None
         self.fps_limit = 60
@@ -22,6 +26,9 @@ class App():
         self.size = self.weight, self.height = 640, 700
 
     def on_init(self):
+        """
+        :return:
+        """
         pygame.init()
         self.clock = pygame.time.Clock()
         self._display_surf = pygame.display.set_mode(self.size)
@@ -29,21 +36,26 @@ class App():
         self.map.load_map()
 
     def on_event(self, event):
+        """
+        :param event:
+        :return:
+        """
         if event.type == pygame.QUIT:
             self._running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.map.part_on_click(pygame.mouse.get_pos())
 
-            #print "Mouse pos:"+str(pygame.mouse.get_pos())+"\n"
-            #self.map.print_mechanic()
-            #print "#"*60
-
     def on_loop(self):
+        """
+        :return:
+        """
         self.map.move_trains()
         self.map.rand_train()
-        #self.map.check_colision()
 
     def on_render(self):
+        """
+        :return:
+        """
         self.score_font = pygame.font.Font(None, 36)
         self.map_font = pygame.font.Font(None, 20)
         self._display_surf.fill(black)
@@ -52,12 +64,11 @@ class App():
                 image = self.map.get_image((col, row))
                 self._display_surf.blit(image, (col*64, row*64))
                 if self.map.get_id((col, row)) == 9:
-
                     text = self.score_font.render(str(self.map.get_station_num((col, row))), 1, white)
                     self._display_surf.blit(text, (col*64, row*64))
 
         for i in self.map.trains:
-            if i.if_moving:
+            if i.if_moving and i.can_move:
                 if i.direction == 0:
                     self.draw_train(i, 0, -1)
                 elif i.direction == 1:
@@ -74,20 +85,37 @@ class App():
         self._display_surf.blit(score_text, (20, 530))
 
         self.clock.tick(60)
-        #self.map.mechanic.bin_display()
 
         pygame.display.flip()
 
     def on_clean_up(self):
+        """
+
+        :return:
+        """
         pygame.quit()
 
     def draw_train(self, train, move_x, move_y):
-        self._display_surf.blit(train.get_image(), (train.x*64+(move_x*train.get_animation()), train.y*64+(move_y*train.get_animation())))
+        """
+        :param train:
+        :param move_x:
+        :param move_y:
+        :return:
+        """
+        self._display_surf.blit(train.get_image(),
+                                (train.x*64+(move_x*train.get_animation()),
+                                train.y*64+(move_y*train.get_animation())))
         text = self.score_font.render(str(train.finish), 1, white)
-        self._display_surf.blit(text, (train.x*64+(move_x*train.get_animation()), train.y*64+(move_y*train.get_animation())))
+        self._display_surf.blit(text,
+                                (train.x*64+(move_x*train.get_animation()),
+                                 train.y*64+(move_y*train.get_animation())))
         train.animation_step()
 
     def on_execute(self):
+        """
+
+        :return:
+        """
         if self.on_init():
             self._running = False
 

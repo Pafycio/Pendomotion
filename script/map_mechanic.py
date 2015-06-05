@@ -2,6 +2,9 @@ __author__ = 'Pawel'
 
 
 class MapMechanic(object):
+    """
+
+    """
     def __init__(self, (x, y)):
         self.x = x*3
         self.y = y*3
@@ -32,7 +35,6 @@ class MapMechanic(object):
         self.set_mechanic_part((x, y), obj.id, obj.rotation, obj.state)
 
     def set_mechanic_part(self, (x, y), t_b, rot, state):
-        #print "Dodalem "+ str(t_b) +" " + str(rot) +" "+ str(state)
         c = (x, y)
         if t_b == 1:
             if rot == 0 or rot == 2:
