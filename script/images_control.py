@@ -10,18 +10,18 @@ w przypadku gdy obrazek bedzie mial wiecej niz 2 stany
 ''' GLOBAL '''
 dir = os.path.dirname(__file__)
 
-path_0 = os.path.join(dir ,r"images\blank.png")
-path_1 = os.path.join(dir ,r"images\straight.png")
-path_2 = os.path.join(dir ,r"images\curve.png")
-path_3 = os.path.join(dir ,r"images\straight_right_2.png")
-path_3_1 = os.path.join(dir ,r"images\straight_right_1.png")
-path_4 = os.path.join(dir ,r"images\straight_left_1.png")
-path_4_1 = os.path.join(dir ,r"images\straight_left_2.png")
-path_5 = os.path.join(dir ,r"images\cross_2.png")
-path_5_1 = os.path.join(dir ,r"images\cross_1.png")
-path_9_1 = os.path.join(dir ,r"images\station_1.png")
-path_t = os.path.join(dir ,r"images\train_1.png")
-no_pic = os.path.join(dir ,r"images\none.png")
+path_0 = os.path.join(dir, "images", "blank.png")
+path_1 = os.path.join(dir, "images", "straight.png")
+path_2 = os.path.join(dir, "images", "curve.png")
+path_3 = os.path.join(dir, "images", "straight_right_2.png")
+path_3_1 = os.path.join(dir, "images", "straight_right_1.png")
+path_4 = os.path.join(dir, "images", "straight_left_1.png")
+path_4_1 = os.path.join(dir, "images", "straight_left_2.png")
+path_5 = os.path.join(dir, "images", "cross_2.png")
+path_5_1 = os.path.join(dir, "images", "cross_1.png")
+path_9_1 = os.path.join(dir, "images", "station_1.png")
+path_t = os.path.join(dir, "images", "train_1.png")
+no_pic = os.path.join(dir, "images", "none.png")
 
 
 class ImagesControl(object):
