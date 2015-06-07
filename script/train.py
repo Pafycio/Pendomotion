@@ -28,7 +28,8 @@ class Train(object):
         self.value = value
         self.x = start.x
         self.y = start.y
-        self.animation = 120
+        self.animation = 0
+        self.time = 30
 
     def change_direction(self, time):
         """
@@ -37,6 +38,19 @@ class Train(object):
         :return:
         """
         self.direction = (self.direction + time) % 4
+
+    def time_to_start(self):
+        """
+
+        :return:
+        """
+        if self.time > 0:
+            self.time -= 1
+            print self.time
+            self.if_moving = True
+            return True
+        else:
+            return False
 
     def set_value(self, val):
         """

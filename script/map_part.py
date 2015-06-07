@@ -23,6 +23,8 @@ class Part(object):
         :param y:
         :return:
         """
+        if block_type >= 10:
+            raise IndexError('Index out of range')
         self.id = block_type
         self.rotation = rotation
         self.max_rotation = 4

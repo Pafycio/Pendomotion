@@ -69,7 +69,9 @@ class App():
 
         for i in self.map.trains:
             if i.if_moving and i.can_move:
-                if i.direction == 0:
+                if i.time_to_start():
+                    self.draw_train(i, 0, 0)
+                elif i.direction == 0:
                     self.draw_train(i, 0, -1)
                 elif i.direction == 1:
                     self.draw_train(i, 1, 0)
@@ -77,6 +79,7 @@ class App():
                     self.draw_train(i, 0, 1)
                 elif i.direction == 3:
                     self.draw_train(i, -1, 0)
+
             else:
                 self.draw_train(i, 0, 0)
 
