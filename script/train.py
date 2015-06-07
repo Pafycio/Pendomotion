@@ -29,7 +29,7 @@ class Train(object):
         self.x = start.x
         self.y = start.y
         self.animation = 0
-        self.time = 30
+        self.time = 0
 
     def change_direction(self, time):
         """
