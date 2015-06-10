@@ -19,17 +19,18 @@ class Train(object):
         :param value:
         :return:
         """
-        self.img = os.path.join(dir, r"images/train_1.png")
+        self.img = os.path.join(dir, "images", "train_1.png")
         self.speed = 4
         self.finish = finish
         self.if_moving = False
         self.can_move = False
+        self.unblock = False
         self.direction = start.rotation
         self.value = value
         self.x = start.x
         self.y = start.y
-        self.animation = 0
-        self.time = 0
+        self.animation = 1
+        self.time = 20
 
     def change_direction(self, time):
         """
@@ -47,10 +48,14 @@ class Train(object):
         if self.time > 0:
             self.time -= 1
             print self.time
-            self.if_moving = True
+            self.unblcok = False
+            return False
+        elif self.time-1 == 0:
+            self.unblcok = True
             return True
         else:
-            return False
+            self.unblcok = False
+            return True
 
     def set_value(self, val):
         """
@@ -75,16 +80,16 @@ class Train(object):
         """
         return self.x, self.y
 
-    def animation_step(self):
+    def animation_step(self, speed):
         """
         Do animation step by self.speed
         :return:
         """
         if self.can_move:
-            self.animation += self.speed
+            self.animation += speed
             if self.animation >= 64:
                 self.if_moving = False
-                self.animation = 0
+                self.animation = 1
 
     def set_pos(self, x, y):
         """
@@ -132,3 +137,7 @@ class Train(object):
         :return:
         """
         return self.can_move
+
+    def set_strategy(self, can_move, if_moving):
+        self.can_move = can_move
+        self.if_moving = if_moving

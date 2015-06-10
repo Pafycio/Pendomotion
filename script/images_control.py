@@ -1,6 +1,6 @@
 __author__ = 'Pawel'
 
-import os,sys
+import os
 
 '''
 Tu lepiej by bylo zmienic na listy  !

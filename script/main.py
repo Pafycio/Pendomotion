@@ -49,8 +49,7 @@ class App():
         """
         :return:
         """
-        self.map.move_trains()
-        self.map.rand_train()
+        self.map.train_control.on_loop()
 
     def on_render(self):
         """
@@ -67,11 +66,9 @@ class App():
                     text = self.score_font.render(str(self.map.get_station_num((col, row))), 1, white)
                     self._display_surf.blit(text, (col*64, row*64))
 
-        for i in self.map.trains:
+        for i in self.map.train_control.trains:
             if i.if_moving and i.can_move:
-                if i.time_to_start():
-                    self.draw_train(i, 0, 0)
-                elif i.direction == 0:
+                if i.direction == 0:
                     self.draw_train(i, 0, -1)
                 elif i.direction == 1:
                     self.draw_train(i, 1, 0)
@@ -79,7 +76,6 @@ class App():
                     self.draw_train(i, 0, 1)
                 elif i.direction == 3:
                     self.draw_train(i, -1, 0)
-
             else:
                 self.draw_train(i, 0, 0)
 
@@ -105,14 +101,23 @@ class App():
         :param move_y:
         :return:
         """
-        self._display_surf.blit(train.get_image(),
-                                (train.x*64+(move_x*train.get_animation()),
-                                train.y*64+(move_y*train.get_animation())))
-        text = self.score_font.render(str(train.finish), 1, white)
-        self._display_surf.blit(text,
-                                (train.x*64+(move_x*train.get_animation()),
-                                 train.y*64+(move_y*train.get_animation())))
-        train.animation_step()
+        #print str(train.get_animation())
+        if train.if_moving:
+            self._display_surf.blit(train.get_image(),
+                                    (train.x*64+(move_x*train.get_animation()),
+                                    train.y*64+(move_y*train.get_animation())))
+            text = self.score_font.render(str(train.finish), 1, white)
+            self._display_surf.blit(text,
+                                    (train.x*64+(move_x*train.get_animation()),
+                                     train.y*64+(move_y*train.get_animation())))
+        elif not train.if_moving:
+            self._display_surf.blit(train.get_image(),
+                                    (train.x*64,
+                                    train.y*64))
+            text = self.score_font.render(str(train.finish), 1, white)
+            self._display_surf.blit(text,
+                                    (train.x*64,
+                                     train.y*64))
 
     def on_execute(self):
         """
@@ -128,6 +133,7 @@ class App():
                 self.on_event(event)
             self.on_loop()
             self.on_render()
+
 
         self.on_clean_up()
 

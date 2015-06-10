@@ -2,7 +2,7 @@ __author__ = 'Pawel'
 from map_part import Part
 from map_mechanic import MapMechanic
 
-from train import Train
+from train_controller import TrainController
 from pygame import image as img
 from pygame import transform as trans
 from random import randint
@@ -19,6 +19,7 @@ class Map(object):
         """
         self.level_id = level_id
         self.mechanic = None
+        self.train_control = None
         self.trains = []
         self.stations = []
         self.x = 0
@@ -40,6 +41,7 @@ class Map(object):
         print "Load map size "+str(self.x) + " " + str(self.y)
         map_parts = [i.rstrip(r"\n*") for i in level_file]
         self.mechanic = MapMechanic((self.x, self.y))
+        self.train_control = TrainController(self.stations, self.mechanic, self)
         k = 0
         for j in xrange(self.x):
             for i in xrange(self.y):
@@ -181,14 +183,14 @@ class Map(object):
                     self.delete_train(i)
                     self.delete_train(j)
 
-    def move_to_pos(self, train, (x, y), direction=0):
+    def move_to_pos(self, train, (x, y), direction=0, can_move=True):
         """
         Move train to position x,y and change direction
         :param train:
         :param direction:
         :return:
         """
-        train.if_moving = True
+        train.if_moving = can_move
         train.set_pos(x, y)
         train.change_direction(direction)
 
@@ -198,16 +200,19 @@ class Map(object):
         :return:
         """
         for i in self.trains:
-            if not i.if_moving:
-                curr = i
-                curr.can_move = True
-                cx, cy = curr.get_pos()
-                old_x, old_y = self.mechanic.get_center((cx, cy))
+            curr = i
+            cx, cy = curr.get_pos()
+            old_x, old_y = self.mechanic.get_center((cx, cy))
+            if not i.if_moving and i.check:
+                print "TRolololo jade"
+                # if_moving = False and can_move = True
                 if curr.direction == 0:
                     x, y = self.mechanic.get_center((cx, cy-1))
                     if self.mechanic.map_array[x][y+1] == "_"and not self.mechanic.map_array[x][y].id == 9:
-                        curr.if_moving = False
+                        curr.if_moving = True
                         curr.can_move = False
+                        curr.time = 5 #czas przed ponownym ruszeniem
+                        print "Nie moge jechac a jade"
                     elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x][y-1] == 1:  # prosto
                         self.t_exit((old_x, old_y))
                         self.move_to_pos(curr, (cx, cy-1))
@@ -233,15 +238,17 @@ class Map(object):
                         else:
                             self.move_to_pos(curr, (cx, cy-1), 2)
                     else:
-                        print "test"
-                        curr.if_moving = False
+                        print "tu mnie nie powinno byc"
+                        curr.if_moving = True
                         curr.can_move = False
 
                 elif curr.direction == 1:
                     x, y = self.mechanic.get_center((cx+1, cy))
                     if self.mechanic.map_array[x-1][y] == "_"and not self.mechanic.map_array[x][y].id == 9:
-                        curr.if_moving = False
+                        curr.if_moving = True
                         curr.can_move = False
+                        curr.time = 5 #czas przed ponownym ruszeniem
+                        print "Nie moge jechac a jade"
                     elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x+1][y] == 1:  # prosto
                         self.t_exit((old_x, old_y))
                         self.move_to_pos(curr, (cx+1, cy))
@@ -266,15 +273,17 @@ class Map(object):
                         else:
                             self.move_to_pos(curr, (cx+1, cy), 2)
                     else:
-                        print "test"
-                        curr.if_moving = False
+                        print "tu mnie nie powinno byc"
+                        curr.if_moving = True
                         curr.can_move = False
 
                 elif curr.direction == 2:
                     x, y = self.mechanic.get_center((cx, cy+1))
                     if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].id == 9:
-                        curr.if_moving = False
+                        curr.if_moving = True
                         curr.can_move = False
+                        curr.time = 5 #czas przed ponownym ruszeniem
+                        print "Nie moge jechac a jade"
                     elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x][y+1] == 1:  # prosto
                         self.t_exit((old_x, old_y))
                         self.move_to_pos(curr, (cx, cy+1))
@@ -300,16 +309,19 @@ class Map(object):
                             self.move_to_pos(curr, (cx, cy+1), 2)
 
                     else:
-                        print "test"
-                        curr.if_moving = False
+                        print "tu mnie nie powinno byc"
+                        curr.if_moving = True
                         curr.can_move = False
 
                 elif curr.direction == 3:
                     x, y = self.mechanic.get_center((cx-1, cy))
                     if self.mechanic.map_array[x+1][y] == "_"and not self.mechanic.map_array[x][y].id == 9:
-                        curr.if_moving = False
+                        curr.if_moving = True
                         curr.can_move = False
+                        curr.time = 5 #czas przed ponownym ruszeniem
+                        print "Nie moge jechac a jade"
                     elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x-1][y] == 1:  # prosto
+                        print "chyba sie tu zgubilem"
                         self.t_exit((old_x, old_y))
                         self.move_to_pos(curr, (cx-1, cy))
                         self.t_enter((x, y))
@@ -334,7 +346,23 @@ class Map(object):
                             self.move_to_pos(curr, (cx-1, cy), 2)
 
                     else:
-                        print "test"
-                        curr.if_moving = False
+                        print "tu mnie nie powinno byc"
+                        curr.if_moving = True
                         curr.can_move = False
+                else:
+                    print"ale nic nie robie"
                 self.check_collision()
+
+            elif not i.if_moving and not i.can_move:
+                # if_moving = False and can_move = False
+                if not i.time_to_start():
+                    i.can_move = True
+                    i.if_moving = False
+                    self.move_to_pos(curr, (cx, cy), False)
+            elif i.if_moving and not i.can_move:
+                # if_moving = True and can_move = False
+                #i.if_moving = False
+                pass
+            else:
+                pass
+                #print"jak sobie jade to tu jestem "
