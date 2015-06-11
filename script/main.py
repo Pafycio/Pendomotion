@@ -77,6 +77,7 @@ class App():
                 elif i.direction == 3:
                     self.draw_train(i, -1, 0)
             else:
+                #print "tu rysuje przeskok"
                 self.draw_train(i, 0, 0)
 
         score_text = self.score_font.render("SCORE : "+str(self.map.map_score), 1, white)
@@ -110,7 +111,9 @@ class App():
             self._display_surf.blit(text,
                                     (train.x*64+(move_x*train.get_animation()),
                                      train.y*64+(move_y*train.get_animation())))
+            train.animation_step(3)
         elif not train.if_moving:
+            #print "tak to ten stojacy jebie wszystko "+str(train.x)+" "+str(train.y)
             self._display_surf.blit(train.get_image(),
                                     (train.x*64,
                                     train.y*64))
@@ -118,6 +121,7 @@ class App():
             self._display_surf.blit(text,
                                     (train.x*64,
                                      train.y*64))
+            train.animation_step(0)
 
     def on_execute(self):
         """

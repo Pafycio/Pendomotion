@@ -2,7 +2,7 @@ __author__ = 'Pawel'
 
 from train import Train
 from random import randint
-
+from train_builder import TrainBuilder
 
 class TrainController(object):
     def __init__(self, stations, mechanic, map):
@@ -13,6 +13,7 @@ class TrainController(object):
         self.trains = []
         self.stations = stations
         self.mechanic = mechanic
+        self.train_build = TrainBuilder()
         self.map = map
 
     def __delattr__(self, item):
@@ -45,7 +46,7 @@ class TrainController(object):
         """
         return len(self.trains)
 
-    def add_train(self, start, finish, value):
+    def add_train(self, start, finish, value, speed):
         """
         Add train to List
         :param start:
@@ -53,7 +54,14 @@ class TrainController(object):
         :param value:
         :return:
         """
-        self.trains.append(Train(self.stations[start], finish, value))
+        self.train_build.set_start_station(self.stations[start])
+        self.train_build.set_finish_station(finish)
+        self.train_build.set_bool_values(False, False, False)
+        self.train_build.set_value(value)
+        self.train_build.set_speed(speed)
+        self.train_build.set_animation(0)
+        self.train_build.set_time(20)
+        self.trains.append(self.train_build.create_train())
 
     def t_enter(self, (x, y)):
         """
@@ -79,11 +87,11 @@ class TrainController(object):
         value = 100
         gen_new = randint(0, 10000)
         if len(self.trains) == 0:
-            self.add_train(start_statnion, finish_statnion, value)
+            self.add_train(start_statnion, finish_statnion, value, 3)
         elif len(self.trains) == 1 and gen_new <= 100:
-            self.add_train(start_statnion, finish_statnion, value)
+            self.add_train(start_statnion, finish_statnion, value, 3)
         elif len(self.trains) == 2 and gen_new <= 10:
-            self.add_train(start_statnion, finish_statnion, value)
+            self.add_train(start_statnion, finish_statnion, value, 3)
 
     def check_collision(self):
         """
@@ -114,8 +122,8 @@ class TrainController(object):
                 self.check_move(train)
             elif train.can_move and not train.if_moving:
                 self.check_move(train)
-            elif train.can_move and train.if_moving:
-                train.animation_step(4)
+            if train.can_move and train.if_moving:
+                train.animation_step(2)
             elif not train.can_move and train.if_moving:
                 train.animation_step(0)
 
@@ -131,14 +139,17 @@ class TrainController(object):
         cx, cy = train.get_pos()
         old_x, old_y = self.mechanic.get_center((cx, cy))
         if train.unblock:
+            #print "Wystartowalen "+str(cx)+" "+str(cy)
             self.move_to(train, (cx, cy))
+            train.unblock = False
         elif train.direction == 0:
             x, y = self.mechanic.get_center((cx, cy-1))
             if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].id == 9:
                 train.if_moving = False
                 train.can_move = False
-                train.time = 5 #czas przed ponownym ruszeniem
-                print "Nie moge jechac a jade"
+                train.time = 7 #czas przed ponownym ruszeniem
+                self.move_to(train, (cx, cy))
+                #print "Nie moge jechac a jade"
             elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x][y-1] == 1:  # prosto
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx, cy-1))
@@ -173,8 +184,9 @@ class TrainController(object):
             if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].id == 9:
                 train.if_moving = False
                 train.can_move = False
-                train.time = 5 #czas przed ponownym ruszeniem
-                print "Nie moge jechac a jade"
+                train.time = 7 #czas przed ponownym ruszeniem
+                self.move_to(train, (cx, cy))
+               # print "Nie moge jechac a jade"
             elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x+1][y] == 1:  # prosto
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx+1, cy))
@@ -208,8 +220,9 @@ class TrainController(object):
             if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].id == 9:
                 train.if_moving = False
                 train.can_move = False
-                train.time = 5 #czas przed ponownym ruszeniem
-                print "Nie moge jechac a jade"
+                train.time = 7 #czas przed ponownym ruszeniem
+                self.move_to(train, (cx, cy))
+                #print "Nie moge jechac a jade"
             elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x][y+1] == 1:  # prosto
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx, cy+1))
@@ -244,10 +257,10 @@ class TrainController(object):
             if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].id == 9:
                 train.if_moving = False
                 train.can_move = False
-                train.time = 5 #czas przed ponownym ruszeniem
-                print "Nie moge jechac a jade"
+                train.time = 7 #czas przed ponownym ruszeniem
+                self.move_to(train, (cx, cy))
+                #print "Nie moge jechac a jade"
             elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x-1][y] == 1:  # prosto
-                print "chyba sie tu zgubilem"
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx-1, cy))
                 self.t_enter((x, y))

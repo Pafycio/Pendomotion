@@ -12,7 +12,9 @@ class Train(object):
     """
     Train Class
     """
-    def __init__(self, start=None, finish=0, value=0):
+
+    def __init__(self, speed, finish, if_moving, can_move,
+                 unblock, direction, value, x, y, animation, time):
         """
         :param start:
         :param finish:
@@ -20,17 +22,17 @@ class Train(object):
         :return:
         """
         self.img = os.path.join(dir, "images", "train_1.png")
-        self.speed = 4
+        self.speed = speed
         self.finish = finish
-        self.if_moving = False
-        self.can_move = False
-        self.unblock = False
-        self.direction = start.rotation
+        self.if_moving = if_moving
+        self.can_move = can_move
+        self.unblock = unblock
+        self.direction = direction
         self.value = value
-        self.x = start.x
-        self.y = start.y
-        self.animation = 1
-        self.time = 20
+        self.x = x
+        self.y = y
+        self.animation = animation
+        self.time = time
 
     def change_direction(self, time):
         """
@@ -45,16 +47,19 @@ class Train(object):
 
         :return:
         """
-        if self.time > 0:
+        if self.time-1 == 0:
+            self.unblock = True
             self.time -= 1
-            print self.time
-            self.unblcok = False
-            return False
-        elif self.time-1 == 0:
-            self.unblcok = True
             return True
+            #print "Odblokowany"
+
+        elif self.time > 0:
+            #print self.time
+            self.unblock = False
+            self.time -= 1
+            return False
+
         else:
-            self.unblcok = False
             return True
 
     def set_value(self, val):
@@ -65,7 +70,7 @@ class Train(object):
         """
         self.value = val
 
-    def change_speed(self, val):
+    def set_speed(self, val):
         """
         Change speed
         :param val:
@@ -139,5 +144,10 @@ class Train(object):
         return self.can_move
 
     def set_strategy(self, can_move, if_moving):
+        """
+        :param can_move:
+        :param if_moving:
+        :return:
+        """
         self.can_move = can_move
         self.if_moving = if_moving
