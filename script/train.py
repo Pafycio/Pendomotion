@@ -13,7 +13,7 @@ class Train(object):
     Train Class
     """
 
-    def __init__(self, speed, finish, if_moving, can_move,
+    def __init__(self, speed, start, finish, if_moving, can_move,
                  unblock, direction, value, x, y, animation, time):
         """
         :param start:
@@ -23,6 +23,7 @@ class Train(object):
         """
         self.img = os.path.join(dir, "images", "train_1.png")
         self.speed = speed
+        self.start = start
         self.finish = finish
         self.if_moving = if_moving
         self.can_move = can_move
@@ -68,7 +69,10 @@ class Train(object):
         :param val:
         :return:
         """
-        self.value = val
+        if val > 0:
+            self.value = val
+        else:
+            self.value = 0
 
     def set_speed(self, val):
         """
@@ -76,7 +80,10 @@ class Train(object):
         :param val:
         :return:
         """
-        self.speed = val
+        if val > 0:
+            self.speed = val
+        else:
+            self.speed = 0
 
     def get_pos(self):
         """
@@ -90,7 +97,7 @@ class Train(object):
         Do animation step by self.speed
         :return:
         """
-        if self.can_move:
+        if self.can_move and speed >= 0:
             self.animation += speed
             if self.animation >= 64:
                 self.if_moving = False

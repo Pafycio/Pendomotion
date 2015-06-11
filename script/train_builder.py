@@ -13,6 +13,7 @@ class TrainBuilder(object):
         """
         self.img = None
         self.speed = None
+        self.start = None
         self.finish = None
         self.if_moving = None
         self.can_move = None
@@ -30,6 +31,7 @@ class TrainBuilder(object):
         :param station:
         :return:
         """
+        self.start = station
         self.direction = station.rotation
         self.x = station.x
         self.y = station.y
@@ -99,6 +101,6 @@ class TrainBuilder(object):
 
         :return:
         """
-        return Train(self.speed, self.finish, self.if_moving, self.can_move,
+        return Train(self.speed, self.start, self.finish, self.if_moving, self.can_move,
                      self.unblock, self.direction, self.value, self.x, self.y,
                      self.animation, self.time)
