@@ -50,7 +50,10 @@ class TrainBuilder(object):
         :param speed:
         :return:
         """
-        self.speed = speed
+        if speed > 0:
+            self.speed = speed
+        else:
+            self.speed = 0
 
     def set_value(self, value):
         """
@@ -58,7 +61,10 @@ class TrainBuilder(object):
         :param value:
         :return:
         """
-        self.value = value
+        if value > 0:
+            self.value = value
+        else:
+            self.value = 0
 
     def set_bool_values(self, if_moving, can_move, unblock):
         """

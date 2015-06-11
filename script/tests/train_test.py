@@ -5,7 +5,7 @@ import unittest
 from script import train
 
 
-class PartTestCase(unittest.TestCase):
+class TrainTestCase(unittest.TestCase):
     def setUp(self):
         self.train_1 = train.Train(3, 1, 0, False, False, False,
                                    0, 100, 2, 2, 15, 6)
@@ -127,5 +127,5 @@ class PartTestCase(unittest.TestCase):
         self.assertEqual(self.train_2.can_move, True)
         self.assertEqual(self.train_2.if_moving, False)
 
-suite = unittest.TestLoader().loadTestsFromTestCase(PartTestCase)
+suite = unittest.TestLoader().loadTestsFromTestCase(TrainTestCase)
 print unittest.TextTestRunner(verbosity=3).run(suite)

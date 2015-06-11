@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac95e26-62fe-4a4e-9b6f-797e4b828ef7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/script/tests/train_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/train.py" afterPath="$PROJECT_DIR$/script/train.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/script/tests/train_builder_test.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/script/tests/train_controller_test.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/train_builder.py" afterPath="$PROJECT_DIR$/script/train_builder.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/train_controller.py" afterPath="$PROJECT_DIR$/script/train_controller.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/tests/train_test.py" afterPath="$PROJECT_DIR$/script/tests/train_test.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Pendomotion.iws" />
@@ -19,12 +21,13 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Pendomotion$Unittests_in_train_builder_test.coverage" NAME="Unittests in train_builder_test Coverage Results" MODIFIED="1433993271987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script/tests" />
     <SUITE FILE_PATH="coverage/Pendomotion$Doctests_in_part_test.coverage" NAME="Doctests in part_test Coverage Results" MODIFIED="1433686670071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script/tests" />
     <SUITE FILE_PATH="coverage/Pendomotion$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1433495850301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Pendomotion$Unittests_in_image_control_test.coverage" NAME="Unittests in image_control_test Coverage Results" MODIFIED="1433686968796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script/tests" />
-    <SUITE FILE_PATH="coverage/Pendomotion$Unittests_in_train_test.coverage" NAME="Unittests in train_test Coverage Results" MODIFIED="1433990868659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script/tests" />
+    <SUITE FILE_PATH="coverage/Pendomotion$Unittests_in_train_test.coverage" NAME="Unittests in train_test Coverage Results" MODIFIED="1433991252937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script/tests" />
     <SUITE FILE_PATH="coverage/Pendomotion$map.coverage" NAME="map Coverage Results" MODIFIED="1433108740457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script" />
-    <SUITE FILE_PATH="coverage/Pendomotion$main.coverage" NAME="main Coverage Results" MODIFIED="1433988858123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script" />
+    <SUITE FILE_PATH="coverage/Pendomotion$main.coverage" NAME="main Coverage Results" MODIFIED="1433991754249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/script" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -40,67 +43,23 @@
     <splitter split-orientation="horizontal" split-proportion="0.39267352">
       <split-first>
         <leaf>
-          <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/script/train.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.84661657" vertical-offset="2140" max-vertical-offset="2805">
-                  <caret line="159" column="34" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
-                  <folding>
-                    <element signature="e#23#54#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="images_control.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/script/images_control.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="478" max-vertical-offset="1360">
-                  <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="map_part.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/script/map_part.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="750" max-vertical-offset="1734">
-                  <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="train_builder.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/script/train_builder.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1887">
-                  <caret line="105" column="47" selection-start-line="105" selection-start-column="47" selection-end-line="105" selection-end-column="47" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="470" max-vertical-offset="1989">
+                  <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/script/main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2567">
-                  <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
-                  <folding>
-                    <element signature="e#22#35#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="train_controller.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="train_controller.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/script/train_controller.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-15.310345" vertical-offset="1171" max-vertical-offset="5066">
-                  <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
+                <state vertical-scroll-proportion="0.18251534" vertical-offset="0" max-vertical-offset="5270">
+                  <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="46" />
                   <folding>
-                    <element signature="e#22#45#0" expanded="true" />
+                    <element signature="e#22#48#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -113,8 +72,8 @@
           <file leaf-file-name="map.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/script/map.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2227">
-                  <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="2227">
+                  <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="22" />
                   <folding>
                     <element signature="e#21#46#0" expanded="true" />
                   </folding>
@@ -122,14 +81,58 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="train_test.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="map_part.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/script/map_part.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="287" max-vertical-offset="1734">
+                  <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="21" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="train_test.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/script/tests/train_test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5368421" vertical-offset="918" max-vertical-offset="2312">
-                  <caret line="75" column="53" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="1647" max-vertical-offset="2312">
+                  <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
                   <folding>
                     <element signature="e#46#61#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/script/train.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="1171" max-vertical-offset="2805">
+                  <caret line="159" column="34" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+                  <folding>
+                    <element signature="e#23#54#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="train_builder_test.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/script/tests/train_builder_test.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="899" max-vertical-offset="1819">
+                  <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#46#61#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="train_controller_test.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/script/tests/train_controller_test.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.02556391" vertical-offset="0" max-vertical-offset="665">
+                  <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -138,7 +141,7 @@
             <entry file="file://$PROJECT_DIR$/script/tests/part_test.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="54" selection-end-column="53" />
+                  <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
                   <folding>
                     <element signature="e#46#61#0" expanded="true" />
                   </folding>
@@ -177,11 +180,13 @@
         <option value="$PROJECT_DIR$/script/images_control.py" />
         <option value="$PROJECT_DIR$/script/train_factory.py" />
         <option value="$PROJECT_DIR$/script/main.py" />
-        <option value="$PROJECT_DIR$/script/train_controller.py" />
         <option value="$PROJECT_DIR$/script/map.py" />
-        <option value="$PROJECT_DIR$/script/train_builder.py" />
         <option value="$PROJECT_DIR$/script/train.py" />
+        <option value="$PROJECT_DIR$/script/train_builder.py" />
         <option value="$PROJECT_DIR$/script/tests/train_test.py" />
+        <option value="$PROJECT_DIR$/script/tests/train_builder_test.py" />
+        <option value="$PROJECT_DIR$/script/tests/train_controller_test.py" />
+        <option value="$PROJECT_DIR$/script/train_controller.py" />
       </list>
     </option>
   </component>
@@ -296,7 +301,7 @@
       <recent name="C:\Users\Pawel\PycharmProjects\Pendomotion\script" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in train_test">
+  <component name="RunManager" selected="Python tests.Unittests in train_builder_test">
     <configuration default="false" name="Doctests in part_test" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -341,26 +346,6 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Pendomotion" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
     <configuration default="false" name="Unittests in image_control_test" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -398,6 +383,31 @@
       <module name="Pendomotion" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/script/tests/train_test.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in train_builder_test" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/script/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Pendomotion" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/script/tests/train_builder_test.py" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -602,17 +612,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python tests.Doctests in part_test" />
       <item index="1" class="java.lang.String" itemvalue="Python.main" />
-      <item index="2" class="java.lang.String" itemvalue="Python.main (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in image_control_test" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in train_test" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in image_control_test" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in train_test" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in train_builder_test" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in train_test" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in train_builder_test" />
         <item index="1" class="java.lang.String" itemvalue="Python.main" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in image_control_test" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Doctests in part_test" />
-        <item index="4" class="java.lang.String" itemvalue="Python.main (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in train_test" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in image_control_test" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Doctests in part_test" />
       </list>
     </recent_temporary>
   </component>
@@ -681,7 +691,13 @@
       <option name="project" value="LOCAL" />
       <updated>1433988362535</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Train Test">
+      <created>1433991098416</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1433991098416</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -781,7 +797,8 @@
     <MESSAGE value="Testy" />
     <MESSAGE value="buf fixed:&#10;late train start" />
     <MESSAGE value="Train_builder&#10;Fixed animation&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Train_builder&#10;Fixed animation&#10;" />
+    <MESSAGE value="Train Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Train Test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -790,24 +807,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/script/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="593" max-vertical-offset="1292">
-          <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-          <folding>
-            <element signature="e#22#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/map_part.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/script/images_control.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="850">
@@ -848,7 +847,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="593" max-vertical-offset="1292">
           <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
           <folding>
-            <element signature="e#22#35#0" expanded="true" />
+            <element signature="e#22#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -901,7 +900,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#22#35#0" expanded="true" />
+            <element signature="e#22#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1097,36 +1096,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/images_control.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="427" max-vertical-offset="1360">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/map_part.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="287" max-vertical-offset="1734">
-          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2567">
-          <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
-          <folding>
-            <element signature="e#22#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/script/map.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2227">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="2227">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="22" />
           <folding>
             <element signature="e#21#46#0" expanded="true" />
           </folding>
@@ -1136,7 +1109,53 @@
     <entry file="file://$PROJECT_DIR$/script/tests/part_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="54" selection-end-column="53" />
+          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+          <folding>
+            <element signature="e#46#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2567">
+          <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+          <folding>
+            <element signature="e#22#35#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/images_control.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5368421" vertical-offset="459" max-vertical-offset="1360">
+          <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1171" max-vertical-offset="2805">
+          <caret line="159" column="34" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+          <folding>
+            <element signature="e#23#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/map_part.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="287" max-vertical-offset="1734">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/tests/train_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1647" max-vertical-offset="2312">
+          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="e#46#61#0" expanded="true" />
           </folding>
@@ -1145,38 +1164,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script/train_builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1887">
-          <caret line="105" column="47" selection-start-line="105" selection-start-column="47" selection-end-line="105" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="470" max-vertical-offset="1989">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/tests/train_builder_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="899" max-vertical-offset="1819">
+          <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding>
+            <element signature="e#46#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/tests/train_controller_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02556391" vertical-offset="0" max-vertical-offset="665">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/script/train_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.310345" vertical-offset="1171" max-vertical-offset="5066">
-          <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.18251534" vertical-offset="0" max-vertical-offset="5270">
+          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="46" />
           <folding>
-            <element signature="e#22#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84661657" vertical-offset="2140" max-vertical-offset="2805">
-          <caret line="159" column="34" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
-          <folding>
-            <element signature="e#23#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/tests/train_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5368421" vertical-offset="918" max-vertical-offset="2312">
-          <caret line="75" column="53" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
-          <folding>
-            <element signature="e#46#61#0" expanded="true" />
+            <element signature="e#22#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
