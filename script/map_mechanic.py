@@ -17,15 +17,15 @@ class MapMechanic(object):
 
     def get_center(self, (x, y)):
         if x*3+1 == 1 and y*3+1 == 1:
-            return (1, 1)
+            return 1, 1
         elif 3*x+1 == 1 and 3*x+1 > self.y:
-            return (1, self.y-2)
+            return 1, self.y-2
         elif 3*x+1 == self.x and y*3+1 == 1:
-            return (self.x-2, 1)
+            return self.x-2, 1
         elif 3*x+1 == self.x and y*3+1 == self.y:
-            return (self.x-2, self.y-2)
+            return self.x-2, self.y-2
         else:
-            return (x*3+1, y*3+1)
+            return x*3+1, y*3+1
 
     def change_state(self, (x, y)):
         (x, y) = self.get_center((x, y))
