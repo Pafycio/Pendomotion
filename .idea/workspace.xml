@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac95e26-62fe-4a4e-9b6f-797e4b828ef7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/map_mechanic.py" afterPath="$PROJECT_DIR$/script/map_mechanic.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/train_controller.py" afterPath="$PROJECT_DIR$/script/train_controller.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/tests/train_controller_test.py" afterPath="$PROJECT_DIR$/script/tests/train_controller_test.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Pendomotion.iws" />
@@ -782,7 +779,13 @@
       <option name="project" value="LOCAL" />
       <updated>1434116006860</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="train_controller test">
+      <created>1434117187377</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1434117187377</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -886,7 +889,8 @@
     <MESSAGE value="Train Builder Test" />
     <MESSAGE value="fixed flyweight template" />
     <MESSAGE value="fixed flyweight template - test" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed flyweight template - test" />
+    <MESSAGE value="train_controller test" />
+    <option name="LAST_COMMIT_MESSAGE" value="train_controller test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
