@@ -2,11 +2,7 @@ __author__ = 'Pawel'
 
 import os
 
-'''
-Tu lepiej by bylo zmienic na listy  !
-w przypadku gdy obrazek bedzie mial wiecej niz 2 stany
 
-'''
 ''' GLOBAL '''
 dir = os.path.dirname(__file__)
 
