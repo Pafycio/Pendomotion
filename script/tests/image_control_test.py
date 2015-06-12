@@ -1,19 +1,19 @@
 __author__ = 'Pawel'
 
 import unittest
-from script import images_control as ic
+from script import images_flyweight as ic
 
 
 class ImageControlTest(unittest.TestCase):
     def setUp(self):
-        self.img_ctrl_0 = ic.ImagesControl(0)
-        self.img_ctrl_1 = ic.ImagesControl(1)
-        self.img_ctrl_2 = ic.ImagesControl(2)
-        self.img_ctrl_3 = ic.ImagesControl(3)
-        self.img_ctrl_4 = ic.ImagesControl(4)
-        self.img_ctrl_5 = ic.ImagesControl(5)
-        self.img_ctrl_9 = ic.ImagesControl(9)
-        self.img_ctrl_22 = ic.ImagesControl(22)
+        self.img_ctrl_0 = ic.ImagesFlyweight(0)
+        self.img_ctrl_1 = ic.ImagesFlyweight(1)
+        self.img_ctrl_2 = ic.ImagesFlyweight(2)
+        self.img_ctrl_3 = ic.ImagesFlyweight(3)
+        self.img_ctrl_4 = ic.ImagesFlyweight(4)
+        self.img_ctrl_5 = ic.ImagesFlyweight(5)
+        self.img_ctrl_9 = ic.ImagesFlyweight(9)
+        self.img_ctrl_22 = ic.ImagesFlyweight(22)
 
     def test_path_state_0(self):
         path_1 = self.img_ctrl_0.get_by_state(0)

@@ -5,16 +5,16 @@ from train_builder import TrainBuilder
 
 
 class TrainController(object):
-    def __init__(self, stations, mechanic, map):
+    def __init__(self, mapa):
         """
-        :param stations:
+        :param mapa:
         :return:
         """
         self.trains = []
-        self.stations = stations
-        self.mechanic = mechanic
+        self.stations = mapa.stations
+        self.mechanic = mapa.mechanic
         self.train_build = TrainBuilder()
-        self.map = map
+        self.map = mapa
 
     def __delattr__(self, item):
         """
@@ -37,6 +37,10 @@ class TrainController(object):
         return self.trains[item]
 
     def on_loop(self):
+        """
+
+        :return:
+        """
         self.rand_train()
         self.move_trains()
 
@@ -56,6 +60,8 @@ class TrainController(object):
         """
         self.train_build.set_start_station(self.stations[start])
         self.train_build.set_finish_station(finish)
+
+
         self.train_build.set_bool_values(False, False, False)
         self.train_build.set_value(value)
         self.train_build.set_speed(speed)
@@ -93,6 +99,10 @@ class TrainController(object):
         elif len(self.trains) == 2 and gen_new <= 10:
             self.add_train(start_statnion, finish_statnion, value, 3)
 
+    def list_train(self, id):
+        train_list_file = open('train_lists/train_list_'+id, "r")
+        values = train_list_file.readline().split()
+
     def check_collision(self):
         """
         Iterate on trains List and check collision
@@ -105,6 +115,11 @@ class TrainController(object):
                     self.trains.remove(j)
 
     def add_value_to_score(self, value):
+        """
+
+        :param value:
+        :return:
+        """
         self.map.map_score += value
 
     def move_to(self, train, (x, y), direction=0, can_move=True):
@@ -120,6 +135,11 @@ class TrainController(object):
         train.change_direction(direction)
 
     def set_strategy(self, train):
+        """
+
+        :param train:
+        :return:
+        """
         if train.time_to_start():
             if not train.can_move and not train.if_moving:
                 self.check_move(train)
@@ -152,7 +172,7 @@ class TrainController(object):
             train.unblock = False
         elif train.direction == 0:
             x, y = self.mechanic.get_center((cx, cy-1))
-            if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].id == 9:
+            if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
                 train.if_moving = False
                 train.can_move = False
                 train.time = 20 #czas przed ponownym ruszeniem
@@ -170,7 +190,7 @@ class TrainController(object):
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx, cy-1), -1)
                 self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].id == 9:
+            elif self.mechanic.map_array[x][y].block_type == 9:
                 if self.mechanic.map_array[x][y].station_num == train.finish:
                     self.t_exit((old_x, old_y))
                     self.move_to(train, (cx, cy-1))
@@ -190,7 +210,7 @@ class TrainController(object):
 
         elif train.direction == 1:
             x, y = self.mechanic.get_center((cx+1, cy))
-            if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].id == 9:
+            if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
                 train.if_moving = False
                 train.can_move = False
                 train.time = 20 #czas przed ponownym ruszeniem
@@ -208,7 +228,7 @@ class TrainController(object):
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx+1, cy), -1)
                 self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].id == 9:
+            elif self.mechanic.map_array[x][y].block_type == 9:
                 if self.mechanic.map_array[x][y].station_num == train.finish:
                     self.t_exit((old_x, old_y))
                     self.move_to(train, (cx+1, cy))
@@ -227,7 +247,7 @@ class TrainController(object):
 
         elif train.direction == 2:
             x, y = self.mechanic.get_center((cx, cy+1))
-            if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].id == 9:
+            if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
                 train.if_moving = False
                 train.can_move = False
                 train.time = 20 #czas przed ponownym ruszeniem
@@ -245,7 +265,7 @@ class TrainController(object):
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx, cy+1), -1)
                 self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].id == 9:
+            elif self.mechanic.map_array[x][y].block_type == 9:
                 if self.mechanic.map_array[x][y].station_num == train.finish:
                     self.t_exit((old_x, old_y))
                     self.move_to(train, (cx, cy+1))
@@ -265,7 +285,7 @@ class TrainController(object):
 
         elif train.direction == 3:
             x, y = self.mechanic.get_center((cx-1, cy))
-            if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].id == 9:
+            if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
                 train.if_moving = False
                 train.can_move = False
                 train.time = 20 #czas przed ponownym ruszeniem
@@ -283,7 +303,7 @@ class TrainController(object):
                 self.t_exit((old_x, old_y))
                 self.move_to(train, (cx-1, cy), -1)
                 self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].id == 9:
+            elif self.mechanic.map_array[x][y].block_type == 9:
                 if self.mechanic.map_array[x][y].station_num == train.finish:
                     self.t_exit((old_x, old_y))
                     self.move_to(train, (cx-1, cy))

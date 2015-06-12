@@ -13,7 +13,7 @@ class MapMechanic(object):
     def add_at(self, (x, y), obj):
         (x, y) = self.get_center((x, y))
         self.map_array[x][y] = obj
-        self.set_mechanic_part((x, y), obj.id, obj.rotation, obj.state)
+        self.set_mechanic_part((x, y), obj.block_type, obj.rotation, obj.state)
 
     def get_center(self, (x, y)):
         if x*3+1 == 1 and y*3+1 == 1:
@@ -32,7 +32,7 @@ class MapMechanic(object):
         obj = self.map_array[x][y]
         obj.change_state()
 
-        self.set_mechanic_part((x, y), obj.id, obj.rotation, obj.state)
+        self.set_mechanic_part((x, y), obj.block_type, obj.rotation, obj.state)
 
     def set_mechanic_part(self, (x, y), t_b, rot, state):
         c = (x, y)

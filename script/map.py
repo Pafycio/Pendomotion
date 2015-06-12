@@ -2,7 +2,7 @@ __author__ = 'Pawel'
 from map_part import Part
 from map_mechanic import MapMechanic
 from train_controller import TrainController
-
+from images_flyweight import ImagesFlyweight
 from pygame import image as img
 from pygame import transform as trans
 from random import randint
@@ -20,6 +20,7 @@ class Map(object):
         self.level_id = level_id
         self.mechanic = None
         self.train_control = None
+        self.image_flyweight = ImagesFlyweight()
         self.trains = []
         self.stations = []
         self.x = 0
@@ -38,10 +39,10 @@ class Map(object):
         xy = level_file.readline().split()
         self.x = int(xy[1])
         self.y = int(xy[0])
-        print "Load map size "+str(self.x) + " " + str(self.y)
+        #print "Load map size "+str(self.x) + " " + str(self.y)
         map_parts = [i.rstrip(r"\n*") for i in level_file]
         self.mechanic = MapMechanic((self.x, self.y))
-        self.train_control = TrainController(self.stations, self.mechanic, self)
+        self.train_control = TrainController(self)
         k = 0
         for j in xrange(self.x):
             for i in xrange(self.y):
@@ -50,7 +51,7 @@ class Map(object):
                 rot = int(cur_part[1])
                 new_part = Part(t_b, rot, i, j)
                 self.mechanic.add_at((i, j), new_part)
-                if new_part.id == 9:
+                if new_part.block_type == 9:
                     self.add_station(new_part)
                 k += 1
 
@@ -94,7 +95,9 @@ class Map(object):
         :return:
         """
         (x, y) = self.mechanic.get_center((x, y))
-        path = self.mechanic.map_array[x][y].get_image_path()
+        block_type = self.mechanic.map_array[x][y].block_type
+        state = self.mechanic.map_array[x][y].state
+        path = self.image_flyweight.get_image_by_id_state(block_type, state)
         image = img.load(path).convert_alpha()
         image = trans.rotate(image, self.mechanic.map_array[x][y].rotation * (-90))
         return image
@@ -105,7 +108,7 @@ class Map(object):
         :return:
         """
         (x, y) = self.mechanic.get_center((x, y))
-        return self.mechanic.map_array[x][y].id
+        return self.mechanic.map_array[x][y].block_type
 
     def get_station_num(self, (x, y)):
         """

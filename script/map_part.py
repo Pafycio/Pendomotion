@@ -1,14 +1,6 @@
 __author__ = 'Pawel'
 
-from images_control import ImagesControl
 import random
-
-'''
-
-Zmienic image na zwykly int i przed rysowaniem zwracac sie do funkcij image control ktora zwroci Path
-nie bedziesz trzymal obiektu w kazdym Part
-Ograniczenie pamieci
-'''
 
 
 class Part(object):
@@ -25,7 +17,7 @@ class Part(object):
         """
         if block_type >= 10:
             raise IndexError('Index out of range')
-        self.id = block_type
+        self.block_type = block_type
         self.rotation = rotation
         self.max_rotation = 4
         self.state = random.randint(0, 1)
@@ -34,7 +26,6 @@ class Part(object):
         self.max_state = 2
         self.design = 0
         self.train_on = False
-        self.image = ImagesControl(block_type)
         self.station_num = None
         if block_type == 0 or block_type == 1 or block_type == 2:
             self.state = 0
@@ -49,7 +40,7 @@ class Part(object):
         Return block type
         :return:
         """
-        return str(self.id)
+        return str(self.block_type)
 
     def rotate(self, times=1):
         """
@@ -67,12 +58,6 @@ class Part(object):
         if not self.train_on:
             self.state = (self.state + 1) % self.max_state
 
-    def get_image_path(self):
-        """
-        Return img path on actual state
-        :return:
-        """
-        return self.image.get_by_state(self.state)
 
     def get_rotation(self):
         """
