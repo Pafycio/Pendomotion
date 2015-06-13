@@ -62,8 +62,7 @@ class TrainController(object):
             self.train_build.set_start_station(self.stations[start])
             self.train_build.set_finish_station(finish)
 
-
-        self.train_build.set_bool_values(False, False, False)
+        self.train_build.set_bool_values(False, True, False)
         self.train_build.set_value(value)
         self.train_build.set_speed(speed)
         self.train_build.set_animation(0)
@@ -95,6 +94,7 @@ class TrainController(object):
         gen_new = randint(0, 10000)
         if len(self.trains) == 0:
             self.add_train(start_statnion, finish_statnion, value, 3)
+
         elif len(self.trains) == 1 and gen_new <= 100:
             self.add_train(start_statnion, finish_statnion, value, 3)
         elif len(self.trains) == 2 and gen_new <= 10:
@@ -130,7 +130,7 @@ class TrainController(object):
         :param direction:
         :return:
         """
-        train.if_moving = True
+        train.if_moving = can_move
         train.can_move = can_move
         train.set_pos(x, y)
         train.change_direction(direction)
@@ -141,15 +141,19 @@ class TrainController(object):
         :param train:
         :return:
         """
+
         if train.time_to_start():
-            if not train.can_move and not train.if_moving:
+            print "Cokolwiek"
+            if not train.if_moving:
+                print "1"
                 self.check_move(train)
-            elif train.can_move and not train.if_moving:
-                self.check_move(train)
+
             if train.can_move and train.if_moving:
                 train.animation_step(2)
-            elif not train.can_move and train.if_moving:
+                print "2"
+            elif not train.can_move and not train.if_moving:
                 train.animation_step(0)
+                print "3"
 
     def move_trains(self):
         """
@@ -169,158 +173,191 @@ class TrainController(object):
         old_x, old_y = self.mechanic.get_center((cx, cy))
         if train.unblock:
             #print "Wystartowalen "+str(cx)+" "+str(cy)
-            self.move_to(train, (cx, cy))
-            train.unblock = False
-        elif train.direction == 0:
-            x, y = self.mechanic.get_center((cx, cy-1))
-            if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
-                train.if_moving = False
-                train.can_move = False
-                train.time = 20 #czas przed ponownym ruszeniem
+            if train.can_move:
+                #print "if --- - "
                 self.move_to(train, (cx, cy))
-                #print "Nie moge jechac a jade"
-            elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x][y-1] == 1:  # prosto
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy-1))
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x+1][y] == 1:  # w prawio
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy-1), 1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w lewo
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy-1), -1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].block_type == 9:
-                if self.mechanic.map_array[x][y].station_num == train.finish:
-                    self.t_exit((old_x, old_y))
-                    self.move_to(train, (cx, cy-1))
-                    self.t_enter((x, y))
-                    #self.map_score += train.get_value()
-                    self.trains.remove(train)
-                    self.t_exit((x, y))
-                    self.add_value_to_score(train.get_value())
-                    #print "Jeste w domku"
-
-                else:
-                    self.move_to(train, (cx, cy-1), 2)
+                train.unblock = False
             else:
-                print "tu mnie nie powinno byc"
-                train.if_moving = False
-                train.can_move = False
+                #print "elswe ----- "
+                self.move_to(train, (cx, cy), False)
+                train.unblock = False
+
+        elif train.direction == 0:
+            self.check_upper(train)
 
         elif train.direction == 1:
-            x, y = self.mechanic.get_center((cx+1, cy))
-            if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
-                train.if_moving = False
-                train.can_move = False
-                train.time = 20 #czas przed ponownym ruszeniem
-                self.move_to(train, (cx, cy))
-               # print "Nie moge jechac a jade"
-            elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x+1][y] == 1:  # prosto
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx+1, cy))
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x][y+1] == 1:  # w prawio
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx+1, cy), 1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x][y-1] == 1:  # w lewo
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx+1, cy), -1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].block_type == 9:
-                if self.mechanic.map_array[x][y].station_num == train.finish:
-                    self.t_exit((old_x, old_y))
-                    self.move_to(train, (cx+1, cy))
-                    self.t_enter((x, y))
-                    #self.map_score += train.get_value()
-                    self.trains.remove(train)
-                    self.t_exit((x, y))
-                    self.add_value_to_score(train.get_value())
-                    #print "Jeste w domku"
-                else:
-                    self.move_to(train, (cx+1, cy), 2)
-            else:
-                print "tu mnie nie powinno byc"
-                train.if_moving = False
-                train.can_move = False
+            self.check_right(train)
 
         elif train.direction == 2:
-            x, y = self.mechanic.get_center((cx, cy+1))
-            if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
-                train.if_moving = False
-                train.can_move = False
-                train.time = 20 #czas przed ponownym ruszeniem
-                self.move_to(train, (cx, cy))
-                #print "Nie moge jechac a jade"
-            elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x][y+1] == 1:  # prosto
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy+1))
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w prawio
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy+1), 1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x+1][y] == 1:  # w lewo
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy+1), -1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].block_type == 9:
-                if self.mechanic.map_array[x][y].station_num == train.finish:
-                    self.t_exit((old_x, old_y))
-                    self.move_to(train, (cx, cy+1))
-                    self.t_enter((x, y))
-                    #self.map_score += train.get_value()
-                    self.trains.remove(train)
-                    self.t_exit((x, y))
-                    self.add_value_to_score(train.get_value())
-                    #print "Jeste w domku"
-                else:
-                    self.move_to(train, (cx, cy+1), 2)
-
-            else:
-                print "tu mnie nie powinno byc"
-                train.if_moving = False
-                train.can_move = False
+            self.check_down(train)
 
         elif train.direction == 3:
-            x, y = self.mechanic.get_center((cx-1, cy))
-            if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
-                train.if_moving = False
-                train.can_move = False
-                train.time = 20 #czas przed ponownym ruszeniem
-                self.move_to(train, (cx, cy))
-                #print "Nie moge jechac a jade"
-            elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x-1][y] == 1:  # prosto
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx-1, cy))
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x][y-1] == 1:  # w prawio
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx-1, cy), 1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x][y+1] == 1:  # w lewo
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx-1, cy), -1)
-                self.t_enter((x, y))
-            elif self.mechanic.map_array[x][y].block_type == 9:
-                if self.mechanic.map_array[x][y].station_num == train.finish:
-                    self.t_exit((old_x, old_y))
-                    self.move_to(train, (cx-1, cy))
-                    self.t_enter((x, y))
-                    #self.map_score += train.get_value()
-                    self.trains.remove(train)
-                    self.t_exit((x, y))
-                    self.add_value_to_score(train.get_value())
-                    #print "Jeste w domku"
-                else:
-                    self.move_to(train, (cx-1, cy), 2)
-
-            else:
-                print "tu mnie nie powinno byc"
-                train.if_moving = False
-                train.can_move = False
+            self.check_left(train)
         else:
             print"ale nic nie robie"
         self.check_collision()
+
+    def check_upper(self, train):
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx, cy-1))
+        old_x, old_y = self.mechanic.get_center((cx, cy))
+        if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
+            train.if_moving = False
+            train.can_move = False
+            train.time = 20 #czas przed ponownym ruszeniem
+            #self.move_to(train, (cx, cy))
+            #print "Nie moge jechac a jade"
+        elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x][y-1] == 1:  # prosto
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx, cy-1))
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x+1][y] == 1:  # w prawio
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx, cy-1), 1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w lewo
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx, cy-1), -1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y].block_type == 9:
+            if self.mechanic.map_array[x][y].station_num == train.finish:
+                self.t_exit((old_x, old_y))
+                self.move_to(train, (cx, cy-1))
+                self.t_enter((x, y))
+                #self.map_score += train.get_value()
+                self.trains.remove(train)
+                self.t_exit((x, y))
+                self.add_value_to_score(train.get_value())
+                #print "Jeste w domku"
+
+            else:
+                self.move_to(train, (cx, cy-1), 2)
+        else:
+            print "tu mnie nie powinno byc"
+            train.if_moving = False
+            train.can_move = False
+
+    def check_right(self, train):
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx+1, cy))
+        old_x, old_y = self.mechanic.get_center((cx, cy))
+        if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
+            train.if_moving = False
+            train.can_move = False
+            train.time = 20 #czas przed ponownym ruszeniem
+            #self.move_to(train, (cx, cy))
+           # print "Nie moge jechac a jade"
+        elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x+1][y] == 1:  # prosto
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx+1, cy))
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x][y+1] == 1:  # w prawio
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx+1, cy), 1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x][y-1] == 1:  # w lewo
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx+1, cy), -1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y].block_type == 9:
+            if self.mechanic.map_array[x][y].station_num == train.finish:
+                self.t_exit((old_x, old_y))
+                self.move_to(train, (cx+1, cy))
+                self.t_enter((x, y))
+                #self.map_score += train.get_value()
+                self.trains.remove(train)
+                self.t_exit((x, y))
+                self.add_value_to_score(train.get_value())
+                #print "Jeste w domku"
+            else:
+                self.move_to(train, (cx+1, cy), 2)
+        else:
+            print "tu mnie nie powinno byc"
+            train.if_moving = False
+            train.can_move = False
+
+    def check_down(self, train):
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx, cy+1))
+        old_x, old_y = self.mechanic.get_center((cx, cy))
+        if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
+            train.if_moving = False
+            train.can_move = False
+            train.time = 20 #czas przed ponownym ruszeniem
+            #self.move_to(train, (cx, cy))
+            #print "Nie moge jechac a jade"
+        elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x][y+1] == 1:  # prosto
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx, cy+1))
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w prawio
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx, cy+1), 1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x+1][y] == 1:  # w lewo
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx, cy+1), -1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y].block_type == 9:
+            if self.mechanic.map_array[x][y].station_num == train.finish:
+                self.t_exit((old_x, old_y))
+                self.move_to(train, (cx, cy+1))
+                self.t_enter((x, y))
+                #  self.map_score += train.get_value()
+                self.trains.remove(train)
+                self.t_exit((x, y))
+                self.add_value_to_score(train.get_value())
+                #  print "Jeste w domku"
+            else:
+                self.move_to(train, (cx, cy+1), 2)
+
+        else:
+            print "tu mnie nie powinno byc"
+            train.if_moving = False
+            train.can_move = False
+
+    def check_left(self, train):
+        cx, cy = train.get_pos()
+        old_x, old_y = self.mechanic.get_center((cx, cy))
+        x, y = self.mechanic.get_center((cx-1, cy))
+        if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
+            train.if_moving = False
+            train.can_move = False
+            train.time = 20 #  czas przed ponownym ruszeniem
+            #  self.move_to(train, (cx, cy))
+            #  print "Nie moge jechac a jade"
+        elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x-1][y] == 1:  # prosto
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx-1, cy))
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x][y-1] == 1:  # w prawio
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx-1, cy), 1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x][y+1] == 1:  # w lewo
+            self.t_exit((old_x, old_y))
+            self.move_to(train, (cx-1, cy), -1)
+            self.t_enter((x, y))
+        elif self.mechanic.map_array[x][y].block_type == 9:
+            if self.mechanic.map_array[x][y].station_num == train.finish:
+                #self.move_to_new_position(train, (old_x, old_y), (cx-1, cy), (x, y))
+                self.t_exit((old_x, old_y))
+                self.move_to(train, (cx-1, cy))
+                self.t_enter((x, y))
+                #  self.map_score += train.get_value()
+                self.trains.remove(train)
+                self.t_exit((x, y))
+                self.add_value_to_score(train.get_value())
+                #  print "Jeste w domku"
+            else:
+                self.move_to(train, (cx-1, cy), 2)
+
+        else:
+            print "tu mnie nie powinno byc"
+            train.if_moving = False
+            train.can_move = False
+
+    def move_to_new_position(self, train, (old_x, old_y), (cx, cy), (x, y)):
+        self.t_exit((old_x, old_y))
+        self.move_to(train, (cx, cy), train.direction)
+        self.t_enter((x, y))

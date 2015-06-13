@@ -101,7 +101,7 @@ class Train(object):
             self.animation += speed
             if self.animation >= 64:
                 self.if_moving = False
-                self.animation = 1
+                self.animation = 0
 
     def set_pos(self, x, y):
         """

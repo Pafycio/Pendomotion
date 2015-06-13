@@ -58,7 +58,6 @@ class Part(object):
         if not self.train_on:
             self.state = (self.state + 1) % self.max_state
 
-
     def get_rotation(self):
         """
         Return rotation
