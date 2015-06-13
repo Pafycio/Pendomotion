@@ -170,7 +170,6 @@ class TrainController(object):
         :return:
         """
         cx, cy = train.get_pos()
-        old_x, old_y = self.mechanic.get_center((cx, cy))
         if train.unblock:
             #print "Wystartowalen "+str(cx)+" "+str(cy)
             if train.can_move:
@@ -208,22 +207,14 @@ class TrainController(object):
             #self.move_to(train, (cx, cy))
             #print "Nie moge jechac a jade"
         elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x][y-1] == 1:  # prosto
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx, cy-1))
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx, cy-1), (x, y))
         elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x+1][y] == 1:  # w prawio
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx, cy-1), 1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx, cy-1), (x, y), 1)
         elif self.mechanic.map_array[x][y+1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w lewo
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx, cy-1), -1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx, cy-1), (x, y), -1)
         elif self.mechanic.map_array[x][y].block_type == 9:
             if self.mechanic.map_array[x][y].station_num == train.finish:
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy-1))
-                self.t_enter((x, y))
+                self.move_to_new_position(train, (old_x, old_y), (cx, cy-1), (x, y))
                 #self.map_score += train.get_value()
                 self.trains.remove(train)
                 self.t_exit((x, y))
@@ -244,26 +235,20 @@ class TrainController(object):
         if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
             train.if_moving = False
             train.can_move = False
-            train.time = 20 #czas przed ponownym ruszeniem
-            #self.move_to(train, (cx, cy))
-           # print "Nie moge jechac a jade"
+            train.time = 20
+
         elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x+1][y] == 1:  # prosto
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx+1, cy))
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx+1, cy), (x, y))
+
         elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x][y+1] == 1:  # w prawio
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx+1, cy), 1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx+1, cy), (x, y), 1)
+
         elif self.mechanic.map_array[x-1][y] == 1 and self.mechanic.map_array[x][y-1] == 1:  # w lewo
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx+1, cy), -1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx+1, cy), (x, y), -1)
+
         elif self.mechanic.map_array[x][y].block_type == 9:
             if self.mechanic.map_array[x][y].station_num == train.finish:
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx+1, cy))
-                self.t_enter((x, y))
+                self.move_to_new_position(train, (old_x, old_y), (cx+1, cy), (x, y))
                 #self.map_score += train.get_value()
                 self.trains.remove(train)
                 self.t_exit((x, y))
@@ -287,22 +272,14 @@ class TrainController(object):
             #self.move_to(train, (cx, cy))
             #print "Nie moge jechac a jade"
         elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x][y+1] == 1:  # prosto
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx, cy+1))
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx, cy+1), (x, y))
         elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x-1][y] == 1:  # w prawio
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx, cy+1), 1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx, cy+1), (x, y), 1)
         elif self.mechanic.map_array[x][y-1] == 1 and self.mechanic.map_array[x+1][y] == 1:  # w lewo
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx, cy+1), -1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx, cy+1), (x, y), -1)
         elif self.mechanic.map_array[x][y].block_type == 9:
             if self.mechanic.map_array[x][y].station_num == train.finish:
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx, cy+1))
-                self.t_enter((x, y))
+                self.move_to_new_position(train, (old_x, old_y), (cx, cy+1), (x, y))
                 #  self.map_score += train.get_value()
                 self.trains.remove(train)
                 self.t_exit((x, y))
@@ -323,27 +300,16 @@ class TrainController(object):
         if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9:
             train.if_moving = False
             train.can_move = False
-            train.time = 20 #  czas przed ponownym ruszeniem
-            #  self.move_to(train, (cx, cy))
-            #  print "Nie moge jechac a jade"
+            train.time = 20
         elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x-1][y] == 1:  # prosto
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx-1, cy))
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx-1, cy), (x, y))
         elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x][y-1] == 1:  # w prawio
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx-1, cy), 1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx-1, cy), (x, y), 1)
         elif self.mechanic.map_array[x+1][y] == 1 and self.mechanic.map_array[x][y+1] == 1:  # w lewo
-            self.t_exit((old_x, old_y))
-            self.move_to(train, (cx-1, cy), -1)
-            self.t_enter((x, y))
+            self.move_to_new_position(train, (old_x, old_y), (cx-1, cy), (x, y), -1)
         elif self.mechanic.map_array[x][y].block_type == 9:
             if self.mechanic.map_array[x][y].station_num == train.finish:
-                #self.move_to_new_position(train, (old_x, old_y), (cx-1, cy), (x, y))
-                self.t_exit((old_x, old_y))
-                self.move_to(train, (cx-1, cy))
-                self.t_enter((x, y))
+                self.move_to_new_position(train, (old_x, old_y), (cx-1, cy), (x, y))
                 #  self.map_score += train.get_value()
                 self.trains.remove(train)
                 self.t_exit((x, y))
@@ -357,7 +323,7 @@ class TrainController(object):
             train.if_moving = False
             train.can_move = False
 
-    def move_to_new_position(self, train, (old_x, old_y), (cx, cy), (x, y)):
+    def move_to_new_position(self, train, (old_x, old_y), (cx, cy), (x, y), direction=0):
         self.t_exit((old_x, old_y))
-        self.move_to(train, (cx, cy), train.direction)
+        self.move_to(train, (cx, cy), direction)
         self.t_enter((x, y))

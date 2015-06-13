@@ -84,7 +84,7 @@ class TrainControllerTestCase(unittest.TestCase):
 
     def test_check_move_1(self):
         self.t_control.add_train(0, 1, 100, 3)
-        self.assertEqual(self.t_control.trains[0].can_move, False)
+        self.assertEqual(self.t_control.trains[0].can_move, True)
         self.assertEqual(self.t_control.trains[0].if_moving, False)
         self.assertEqual(self.t_control.trains[0].unblock, False)
         self.t_control.check_move(self.t_control[0])
@@ -94,7 +94,7 @@ class TrainControllerTestCase(unittest.TestCase):
 
     def test_check_move_2(self):
         self.t_control.add_train(1, 1, 100, 3)
-        self.assertEqual(self.t_control.trains[0].can_move, False)
+        self.assertEqual(self.t_control.trains[0].can_move, True)
         self.assertEqual(self.t_control.trains[0].if_moving, False)
         self.assertEqual(self.t_control.trains[0].unblock, False)
         self.t_control.check_move(self.t_control[0])
