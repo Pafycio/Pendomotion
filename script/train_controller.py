@@ -143,17 +143,18 @@ class TrainController(object):
         """
 
         if train.time_to_start():
-            print "Cokolwiek"
+            #  print "Cokolwiek"
             if not train.if_moving:
-                print "1"
+                #  print "1"
                 self.check_move(train)
 
             if train.can_move and train.if_moving:
                 train.animation_step(2)
-                print "2"
+                #  print "2"
+
             elif not train.can_move and not train.if_moving:
                 train.animation_step(0)
-                print "3"
+                #  print "3"
 
     def move_trains(self):
         """
@@ -171,13 +172,13 @@ class TrainController(object):
         """
         cx, cy = train.get_pos()
         if train.unblock:
-            #print "Wystartowalen "+str(cx)+" "+str(cy)
+            #  print "Wystartowalen "+str(cx)+" "+str(cy)
             if train.can_move:
-                #print "if --- - "
+                #  print "if --- - "
                 self.move_to(train, (cx, cy))
                 train.unblock = False
             else:
-                #print "elswe ----- "
+                #  print "elswe ----- "
                 self.move_to(train, (cx, cy), False)
                 train.unblock = False
 
