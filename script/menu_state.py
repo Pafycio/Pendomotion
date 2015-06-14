@@ -14,13 +14,28 @@ bright_red = (230, 0, 0)
 
 
 class Menu(State):
+    """
+    MENU STATE
+    """
     def __init__(self, surf, prev):
+        """
+
+        :param surf:
+        :param prev:
+        """
         State.__init__(self, surf, prev)
 
     def on_update(self):
+        """
+
+
+        """
         pass
 
     def on_render(self):
+        """
+
+        """
         self.surf.fill(light_grey)
         title_font = pygame.font.Font(None, 50)
         copy_font = pygame.font.Font(None, 20)
@@ -49,6 +64,11 @@ class Menu(State):
         pygame.display.flip()
 
     def on_event(self, event):
+        """
+
+        :param event:
+        :return:
+        """
         if event.type == pygame.QUIT:
             return "EXIT"
         if event.type == pygame.MOUSEBUTTONDOWN:

@@ -99,10 +99,12 @@ class TrainController(object):
             self.add_train(start_statnion, finish_statnion, value, 3)
         elif len(self.trains) == 2 and gen_new <= 10:
             self.add_train(start_statnion, finish_statnion, value, 3)
-
-    def list_train(self, id):
+    '''
+    @staticmethod
+    def list_train(id):
         train_list_file = open('train_lists/train_list_'+id, "r")
-        values = train_list_file.readline().split()
+        #  values = train_list_file.readline().split()
+    '''
 
     def check_collision(self):
         """
@@ -129,11 +131,13 @@ class TrainController(object):
         """
         self.map.map_score += value
 
-    def move_to(self, train, (x, y), direction=0, can_move=True):
+    @staticmethod
+    def move_to(train, (x, y), direction=0, can_move=True):
         """
-        Move train to position x,y and change direction
+
         :param train:
         :param direction:
+        :param can_move:
         :return:
         """
         train.if_moving = can_move

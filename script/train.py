@@ -52,10 +52,8 @@ class Train(object):
             self.unblock = True
             self.time -= 1
             return True
-            #print "Odblokowany"
 
         elif self.time > 0:
-            #print self.time
             self.unblock = False
             self.time -= 1
             return False

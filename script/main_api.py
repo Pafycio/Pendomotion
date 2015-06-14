@@ -5,6 +5,9 @@ from state_controller import StateController
 
 
 class App():
+    """
+    MAIN CLASS
+    """
     def __init__(self):
         """
         init game
@@ -27,7 +30,8 @@ class App():
         self.running = True
         self._state_controller = StateController(self, self._display_surf)
 
-    def on_clean_up(self):
+    @staticmethod
+    def on_clean_up():
         """
 
         :return:

@@ -5,7 +5,6 @@ from train_controller import TrainController
 from images_flyweight import ImagesFlyweight
 from pygame import image as img
 from pygame import transform as trans
-from random import randint
 
 
 class Map(object):
@@ -40,7 +39,6 @@ class Map(object):
         xy = level_file.readline().split()
         self.x = int(xy[1])
         self.y = int(xy[0])
-        #print "Load map size "+str(self.x) + " " + str(self.y)
         map_parts = [i.rstrip(r"\n*") for i in level_file]
         self.mechanic = MapMechanic((self.x, self.y))
         self.train_control = TrainController(self)
@@ -85,7 +83,6 @@ class Map(object):
             while y > 0:
                 j += 1
                 y -= 64
-            #print "Main array x:"+str(i) + " y:" + str(j)
             self.mechanic.change_state((i, j))
 
         #  print "Mechanic array:"+str(self.mechanic.get_center((i, j)))
@@ -129,7 +126,15 @@ class Map(object):
         self.stations.append(part)
 
     def add_crash(self):
+        """
+
+        :return:
+        """
         self.crash += 1
 
     def add_finish_train(self):
+        """
+
+        :return:
+        """
         self.train_in_state += 1

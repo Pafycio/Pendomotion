@@ -14,7 +14,15 @@ bright_red = (230, 0, 0)
 
 
 class CreateGame(State):
+    """
+    CREATE GAME STATE
+    """
     def __init__(self, surf, prev):
+        """
+        :param surf:
+        :param prev:
+        :return:
+        """
         State.__init__(self, surf, prev)
         self.random = True
         self.train = 6
@@ -22,9 +30,17 @@ class CreateGame(State):
         self.map = "2"
 
     def on_update(self):
+        """
+
+        :return:
+        """
         pass
 
     def on_render(self):
+        """
+
+        :return:
+        """
         self.surf.fill(light_grey)
         title_font = pygame.font.Font(None, 50)
         copy_font = pygame.font.Font(None, 20)
@@ -109,6 +125,10 @@ class CreateGame(State):
         pygame.display.flip()
 
     def on_event(self, event):
+        """
+        :param event:
+        :return:
+        """
         if event.type == pygame.QUIT:
             return "EXIT"
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -132,11 +152,21 @@ class CreateGame(State):
         return "NONE"
 
     def add_train(self, value):
+        """
+
+        :param value:
+        :return:
+        """
         self.train += value
         if self.train < 1:
             self.train = 1
 
     def add_crash(self, value):
+        """
+
+        :param value:
+        :return:
+        """
         self.crash += value
         if self.crash < 1:
             self.crash = 1

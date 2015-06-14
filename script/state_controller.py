@@ -9,6 +9,9 @@ from game_menu_state import GameMenu
 
 
 class StateController(object):
+    """
+    STATE CONTROLLER
+    """
     def __init__(self, api, surf):
         self.api = api
         self.surf = surf
