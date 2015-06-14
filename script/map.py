@@ -27,6 +27,7 @@ class Map(object):
         self.y = 0
         self.map_score = 0
         self.crash = 0
+        self.train_in_state = 0
 
     def load_map(self):
         """
@@ -126,3 +127,9 @@ class Map(object):
         """
         part.station_num = int(len(self.stations))
         self.stations.append(part)
+
+    def add_crash(self):
+        self.crash += 1
+
+    def add_finish_train(self):
+        self.train_in_state += 1

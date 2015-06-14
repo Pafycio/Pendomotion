@@ -1,6 +1,7 @@
 __author__ = 'Pawel'
 
 import pygame
+from state_controller import StateController
 from map import Map
 black = 0, 0, 0
 white = 255, 255, 255
@@ -33,6 +34,7 @@ class App():
         self.clock = pygame.time.Clock()
         self._display_surf = pygame.display.set_mode(self.size)
         self._running = True
+        self._state_controller = StateController(self, self._display_surf)
         self.map.load_map()
 
     def on_event(self, event):
@@ -41,9 +43,7 @@ class App():
         :return:
         """
         if event.type == pygame.QUIT:
-            self._running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            self.map.part_on_click(pygame.mouse.get_pos())
+            return "EXIT"
 
     def on_loop(self):
         """
@@ -88,12 +88,6 @@ class App():
 
         pygame.display.flip()
 
-    def on_clean_up(self):
-        """
-
-        :return:
-        """
-        pygame.quit()
 
     def draw_train(self, train, move_x, move_y):
         """
@@ -123,6 +117,13 @@ class App():
                                      train.y*64))
             train.animation_step(0)
 
+    def on_clean_up(self):
+        """
+
+        :return:
+        """
+        pygame.quit()
+
     def on_execute(self):
         """
 
@@ -137,7 +138,6 @@ class App():
                 self.on_event(event)
             self.on_loop()
             self.on_render()
-
 
         self.on_clean_up()
 
