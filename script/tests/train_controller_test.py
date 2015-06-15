@@ -9,11 +9,11 @@ from script import train_controller
 class TrainControllerTestCase(unittest.TestCase):
     def setUp(self):
         self.map = map.Map("2")
-        self.map.load_map()
-        self.t_control = train_controller.TrainController(self.map)
+        self.map.load_map(True)
+        self.t_control = train_controller.TrainController(self.map, True)
 
     def test_constructor_1(self):
-        train_c = train_controller.TrainController(self.map)
+        train_c = train_controller.TrainController(self.map, True)
         self.assertEqual(len(train_c.trains), 0)
         self.assertEqual(train_c.map, self.map)
 

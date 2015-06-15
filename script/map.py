@@ -20,7 +20,6 @@ class Map(object):
         self.mechanic = None
         self.train_control = None
         self.image_flyweight = ImagesFlyweight()
-        self.trains = []
         self.stations = []
         self.x = 0
         self.y = 0

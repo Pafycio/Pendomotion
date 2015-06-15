@@ -105,11 +105,11 @@ class TrainTestCase(unittest.TestCase):
         self.train_2.animation_step(4)
         self.assertEqual(self.train_2.if_moving, False)
         self.train_2.animation_step(0)
-        self.assertEqual(self.train_2.animation, 1)
+        self.assertEqual(self.train_2.animation, 0)
         self.train_2.animation_step(2)
-        self.assertEqual(self.train_2.animation, 3)
+        self.assertEqual(self.train_2.animation, 2)
         self.train_2.animation_step(-33)
-        self.assertEqual(self.train_2.animation, 3)
+        self.assertEqual(self.train_2.animation, 2)
 
     def test_set_pos_1(self):
         self.train_1.set_pos(5, 11)
