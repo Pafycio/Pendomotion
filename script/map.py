@@ -35,7 +35,7 @@ class Map(object):
         Create list of stations
         :return:
         """
-        level_file = open('maps/level_'+self.level_id, "r")
+        level_file = open('maps/level_'+str(self.level_id), "r")
         xy = level_file.readline().split()
         self.x = int(xy[1])
         self.y = int(xy[0])

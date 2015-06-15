@@ -17,7 +17,7 @@ class Game(State):
         self.random = self.prev_state.random
         self.max_trains = self.prev_state.train
         self.max_crash = self.prev_state.crash
-        self.map = Map(self.prev_state.map)
+        self.map = Map(self.prev_state.cur_map)
         self.map.load_map()
         self.pause = False
         self.end = False

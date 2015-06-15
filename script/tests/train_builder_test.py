@@ -16,8 +16,8 @@ class TrainBuilderTestCase(unittest.TestCase):
         self.builder.set_start_station(self.station_1)
         self.assertEqual(self.builder.start, self.station_1)
         self.assertEqual(self.builder.direction, self.station_1.rotation)
-        self.assertEqual(self.builder.x, self.station_1.x)
-        self.assertEqual(self.builder.y, self.station_1.y)
+        self.assertEqual(self.builder.pos_x, self.station_1.x)
+        self.assertEqual(self.builder.pos_y, self.station_1.y)
 
     def test_set_finish_station_1(self):
         self.builder.set_finish_station(5)

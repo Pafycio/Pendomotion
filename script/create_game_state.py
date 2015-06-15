@@ -27,11 +27,10 @@ class CreateGame(State):
         self.random = True
         self.train = 6
         self.crash = 4
-        self.map = "2"
+        self.cur_map = 1
 
     def on_update(self):
         """
-
         :return:
         """
         pass
@@ -103,14 +102,36 @@ class CreateGame(State):
             pygame.draw.rect(self.surf, bright_red, (470, 303, 30, 10))
         else:
             pygame.draw.rect(self.surf, red, (470, 303, 30, 10))
-        ''' BUTTONS '''
-        if 200+240 > mouse[0] > 200 and 400+50 > mouse[1] > 400:
-            pygame.draw.rect(self.surf, bright_green, (200, 400, 240, 50))
+
+        ''' LEVEL '''
+        crash_num = button_font.render("Choice the level.", 10, black)
+        self.surf.blit(crash_num, (50, 359))
+
+        number = title_font.render(str(self.cur_map), 10, black)
+        self.surf.blit(number, (530, 354))
+
+        if 580+30 > mouse[0] > 580 and 359+30 > mouse[1] > 359:
+            pygame.draw.rect(self.surf, bright_green, (580, 359, 30, 10))
+            pygame.draw.rect(self.surf, bright_green, (590, 349, 10, 30))
         else:
-            pygame.draw.rect(self.surf, green, (200, 400, 240, 50))
+            pygame.draw.rect(self.surf, green, (580, 359, 30, 10))
+            pygame.draw.rect(self.surf, green, (590, 349, 10, 30))
+
+        if 470+30 > mouse[0] > 470 and 359+10 > mouse[1] > 359:
+            pygame.draw.rect(self.surf, bright_red, (470, 359, 30, 10))
+        else:
+            pygame.draw.rect(self.surf, red, (470, 359, 30, 10))
+
+
+
+        ''' BUTTONS '''
+        if 200+240 > mouse[0] > 200 and 420+50 > mouse[1] > 420:
+            pygame.draw.rect(self.surf, bright_green, (200, 420, 240, 50))
+        else:
+            pygame.draw.rect(self.surf, green, (200, 420, 240, 50))
 
         start_test = button_font.render("START", 10, black)
-        self.surf.blit(start_test, (288, 415))
+        self.surf.blit(start_test, (288, 435))
 
         if 200+240 > mouse[0] > 200 and 500+50 > mouse[1] > 500:
             pygame.draw.rect(self.surf, bright_red, (200, 500, 240, 50))
@@ -145,7 +166,11 @@ class CreateGame(State):
                 self.add_crash(1)
             elif 470+30 > mouse[0] > 470 and 303+10 > mouse[1] > 303:
                 self.add_crash(-1)
-            elif 200+240 > mouse[0] > 200 and 400+50 > mouse[1] > 400:
+            elif 580+30 > mouse[0] > 580 and 359+30 > mouse[1] > 359:
+                self.add_level(1)
+            elif 470+30 > mouse[0] > 470 and 359+10 > mouse[1] > 359:
+                self.add_level(-1)
+            elif 200+240 > mouse[0] > 200 and 420+50 > mouse[1] > 420:
                 return "GAME"
             elif 200+240 > mouse[0] > 200 and 500+50 > mouse[1] > 500:
                 return "PREV"
@@ -153,7 +178,6 @@ class CreateGame(State):
 
     def add_train(self, value):
         """
-
         :param value:
         :return:
         """
@@ -163,10 +187,16 @@ class CreateGame(State):
 
     def add_crash(self, value):
         """
-
         :param value:
         :return:
         """
         self.crash += value
         if self.crash < 1:
             self.crash = 1
+
+    def add_level(self, value):
+        self.cur_map += value
+        if self.cur_map < 1:
+            self.cur_map = 1
+        elif self.cur_map > 3:
+            self.cur_map = 3
