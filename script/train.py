@@ -117,8 +117,8 @@ class Train(object):
         :return:
         """
         image = img.load(self.img).convert_alpha()
-        image = trans.rotate(image, self.direction * (-90))
-        return image
+        image_r = trans.rotate(image, self.direction * (-90))
+        return image_r
 
     def get_value(self):
         """

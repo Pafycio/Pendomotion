@@ -1,11 +1,13 @@
 __author__ = 'Pawel'
 
-from random import randint
 from train_builder import TrainBuilder
+from random_gen import RandomGen
+from list_gen import ListGen
+from random import randint
 
 
 class TrainController(object):
-    def __init__(self, mapa):
+    def __init__(self, mapa, generator):
         """
         :param mapa:
         :return:
@@ -15,6 +17,10 @@ class TrainController(object):
         self.mechanic = mapa.mechanic
         self.train_build = TrainBuilder()
         self.map = mapa
+        if generator:
+            self.train_generator = RandomGen(len(self.map.stations))
+        else:
+            self.train_generator = ListGen(len(self.map.stations))
 
     def __delattr__(self, item):
         """
@@ -88,23 +94,10 @@ class TrainController(object):
         Random generating trains with rand start and rand end
         :return:
         """
-        start_statnion = randint(0, len(self.stations)-1)
-        finish_statnion = randint(0, len(self.stations)-1)
-        value = 100
-        gen_new = randint(0, 10000)
-        if len(self.trains) == 0:
-            self.add_train(start_statnion, finish_statnion, value, 3)
-
-        elif len(self.trains) == 1 and gen_new <= 100:
-            self.add_train(start_statnion, finish_statnion, value, 3)
-        elif len(self.trains) == 2 and gen_new <= 10:
-            self.add_train(start_statnion, finish_statnion, value, 3)
-    '''
-    @staticmethod
-    def list_train(id):
-        train_list_file = open('train_lists/train_list_'+id, "r")
-        #  values = train_list_file.readline().split()
-    '''
+        start, finish, speed = self.train_generator.generate(len(self.trains))
+        if start is not None:
+            value = randint(100, 150)
+            self.add_train(int(start), int(finish), int(value), int(speed))
 
     def check_collision(self):
         """

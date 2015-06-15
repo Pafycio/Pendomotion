@@ -28,7 +28,7 @@ class Map(object):
         self.crash = 0
         self.train_in_state = 0
 
-    def load_map(self):
+    def load_map(self, generator):
         """
         Load map from file
         Create Map Mechanic
@@ -41,7 +41,6 @@ class Map(object):
         self.y = int(xy[0])
         map_parts = [i.rstrip(r"\n*") for i in level_file]
         self.mechanic = MapMechanic((self.x, self.y))
-        self.train_control = TrainController(self)
         k = 0
         for j in xrange(self.x):
             for i in xrange(self.y):
@@ -53,6 +52,7 @@ class Map(object):
                 if new_part.block_type == 9:
                     self.add_station(new_part)
                 k += 1
+        self.train_control = TrainController(self, generator)
 
     def print_mechanic(self):
         """

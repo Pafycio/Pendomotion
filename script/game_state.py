@@ -3,7 +3,8 @@ __author__ = 'Pawel'
 import pygame
 from map import Map
 from state import State
-
+from random_gen import RandomGen
+from list_gen import ListGen
 black = (0, 0, 0)
 white = (255, 255, 255)
 
@@ -14,13 +15,13 @@ class Game(State):
     """
     def __init__(self, surf, prev):
         State.__init__(self, surf, prev)
-        self.random = self.prev_state.random
+        self.generator = self.prev_state.random
         self.max_trains = self.prev_state.train
         self.max_crash = self.prev_state.crash
-        self.map = Map(self.prev_state.cur_map)
-        self.map.load_map()
         self.pause = False
         self.end = False
+        self.map = Map(self.prev_state.cur_map)
+        self.map.load_map(self.generator)
 
     def on_update(self):
         """
