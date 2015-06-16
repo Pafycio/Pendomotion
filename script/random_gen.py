@@ -6,16 +6,19 @@ from random import randint
 
 class RandomGen(TrainGen):
     def __init__(self, stages):
+        """
+        :param stages:
+        :return:
+        """
         TrainGen.__init__(self, stages)
-        print self.max_stages
 
     def generate(self, train_num):
         """
         Random generating trains with rand start and rand end
         :return:
         """
-        start_stage = randint(0, self.max_stages)
-        finish_stage = randint(0, self.max_stages)
+        start_stage = randint(0, self.max_stages-1)
+        finish_stage = randint(0, self.max_stages-1)
         speed = randint(3, 8)
         gen_new = randint(0, 10000)
         if train_num == 0:

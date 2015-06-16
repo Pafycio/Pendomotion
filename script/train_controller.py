@@ -64,10 +64,8 @@ class TrainController(object):
         :param value:
         :return:
         """
-        if start < len(self.stations) and finish < len(self.stations):
-            self.train_build.set_start_station(self.stations[start])
-            self.train_build.set_finish_station(finish)
-
+        self.train_build.set_start_station(self.stations[start])
+        self.train_build.set_finish_station(finish)
         self.train_build.set_bool_values(False, True, False)
         self.train_build.set_value(value)
         self.train_build.set_speed(speed)
