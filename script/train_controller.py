@@ -175,13 +175,15 @@ class TrainController(object):
         if train.unblock:
             #  print "Wystartowalen "+str(cx)+" "+str(cy)
             if train.can_move:
-                #  print "if --- - "
-                self.move_to(train, (cx, cy))
-                train.unblock = False
+                if self.check_again(train) == 0:
+                    print "jade w if"
+                    self.move_to(train, (cx, cy))
+                    train.unblock = False
             else:
-                #  print "elswe ----- "
-                self.move_to(train, (cx, cy), False)
-                train.unblock = False
+                if self.check_again(train) == 0:
+                    print "jade w else"
+                    self.move_to(train, (cx, cy), False)
+                    train.unblock = False
 
         elif train.direction == 0:
             self.check_upper(train)
@@ -328,3 +330,29 @@ class TrainController(object):
         self.t_exit((old_x, old_y))
         self.move_to(train, (cx, cy), direction)
         self.t_enter((x, y))
+
+    def check_again(self, train):
+        couter = 0
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx, cy-1))
+        if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 0:
+            couter += 1
+
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx+1, cy))
+        if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 1:
+            couter += 1
+
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx, cy+1))
+        print cx, cy
+        print x, y
+        if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 2:
+            couter += 1
+
+        cx, cy = train.get_pos()
+        x, y = self.mechanic.get_center((cx-1, cy))
+        if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 3:
+            couter += 1
+
+        return couter
