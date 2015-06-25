@@ -7,16 +7,16 @@ from random import randint
 
 
 class TrainController(object):
-    def __init__(self, mapa, generator):
+    def __init__(self, level, generator):
         """
-        :param mapa:
+        :param level:
         :return:
         """
         self.trains = []
-        self.stations = mapa.stations
-        self.mechanic = mapa.mechanic
+        self.stations = level.stations
+        self.mechanic = level.mechanic
         self.train_build = TrainBuilder()
-        self.map = mapa
+        self.map = level
         if generator:
             self.train_generator = RandomGen(len(self.map.stations))
         else:
@@ -105,8 +105,11 @@ class TrainController(object):
         for i in self.trains:
             for j in self.trains:
                 if i != j and i.x == j.x and i.y == j.y:
+                    cx, cy = i.get_pos()
+                    x, y = self.mechanic.get_center((cx, cy))
                     self.trains.remove(i)
                     self.trains.remove(j)
+                    self.t_exit((x, y))
                     self.map.add_crash()
 
     def train_finish(self, train):
@@ -176,12 +179,12 @@ class TrainController(object):
             #  print "Wystartowalen "+str(cx)+" "+str(cy)
             if train.can_move:
                 if self.check_again(train) == 0:
-                    print "jade w if"
+                    #  print "jade w if"
                     self.move_to(train, (cx, cy))
                     train.unblock = False
             else:
                 if self.check_again(train) == 0:
-                    print "jade w else"
+                    #  print "jade w else"
                     self.move_to(train, (cx, cy), False)
                     train.unblock = False
 
@@ -326,6 +329,9 @@ class TrainController(object):
             train.if_moving = False
             train.can_move = False
 
+    def is_not_station(self, (x, y)):
+        return not self.mechanic.map_array[x][y].block_type == 9
+
     def move_to_new_position(self, train, (old_x, old_y), (cx, cy), (x, y), direction=0):
         self.t_exit((old_x, old_y))
         self.move_to(train, (cx, cy), direction)
@@ -335,24 +341,22 @@ class TrainController(object):
         couter = 0
         cx, cy = train.get_pos()
         x, y = self.mechanic.get_center((cx, cy-1))
-        if self.mechanic.map_array[x][y+1] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 0:
+        if train.direction == 0 and self.mechanic.map_array[x][y+1] == "_" and self.is_not_station((x, y)):
             couter += 1
 
         cx, cy = train.get_pos()
         x, y = self.mechanic.get_center((cx+1, cy))
-        if self.mechanic.map_array[x-1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 1:
+        if train.direction == 1 and self.mechanic.map_array[x-1][y] == "_" and self.is_not_station((x, y)):
             couter += 1
 
         cx, cy = train.get_pos()
         x, y = self.mechanic.get_center((cx, cy+1))
-        print cx, cy
-        print x, y
-        if self.mechanic.map_array[x][y-1] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 2:
+        if train.direction == 2 and self.mechanic.map_array[x][y-1] == "_" and self.is_not_station((x, y)):
             couter += 1
 
         cx, cy = train.get_pos()
         x, y = self.mechanic.get_center((cx-1, cy))
-        if self.mechanic.map_array[x+1][y] == "_" and not self.mechanic.map_array[x][y].block_type == 9 and train.direction == 3:
+        if train.direction == 3 and self.mechanic.map_array[x+1][y] == "_" and self.is_not_station((x, y)):
             couter += 1
 
         return couter

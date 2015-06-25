@@ -30,6 +30,7 @@ class App():
         self.running = True
         self._state_controller = StateController(self, self._display_surf)
 
+
     @staticmethod
     def on_clean_up():
         """
