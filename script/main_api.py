@@ -25,11 +25,11 @@ class App():
         :return:
         """
         pygame.init()
+        pygame.display.set_caption('PendoMotion')
         self.clock = pygame.time.Clock()
         self._display_surf = pygame.display.set_mode(self.size)
         self.running = True
         self._state_controller = StateController(self, self._display_surf)
-
 
     @staticmethod
     def on_clean_up():

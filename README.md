@@ -1,5 +1,5 @@
 # Pendomotion
-Game inspired by the old Atari game Locomotion
+Game inspired by the old Amiga game Locomotion
 
 # You need
 Python 2.7.x

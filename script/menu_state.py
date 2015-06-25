@@ -1,7 +1,12 @@
 __author__ = 'Pawel'
 
+import os
 import pygame
 from state import State
+from pygame import image as img
+
+local_dir = os.path.dirname(__file__)
+pendo_text = os.path.join(local_dir, "images", "pendomotion_text.png")
 
 light_grey = (200, 200, 209)
 black = (0, 0, 0)
@@ -37,11 +42,11 @@ class Menu(State):
 
         """
         self.surf.fill(light_grey)
-        title_font = pygame.font.Font(None, 50)
         copy_font = pygame.font.Font(None, 20)
         button_font = pygame.font.Font(None, 30)
-        title = title_font.render("PENDOMOTION", 10, black)
-        self.surf.blit(title, (190, 100))
+        logo = img.load(pendo_text).convert_alpha()
+        self.surf.blit(logo, (70, 20))
+
         mouse = pygame.mouse.get_pos()
         if 200+240 > mouse[0] > 200 and 200+50 > mouse[1] > 200:
             pygame.draw.rect(self.surf, bright_green, (200, 200, 240, 50))
