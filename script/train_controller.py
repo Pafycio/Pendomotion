@@ -1,7 +1,6 @@
 __author__ = 'Pawel'
 
 from train import Train
-from train_builder import TrainBuilder
 from random_gen import RandomGen
 from list_gen import ListGen
 from random import randint
@@ -16,7 +15,6 @@ class TrainController(object):
         self.trains = []
         self.stations = level.stations
         self.mechanic = level.mechanic
-        self.train_build = TrainBuilder()
         self.map = level
         if generator:
             self.train_generator = RandomGen(len(self.map.stations))
@@ -70,15 +68,6 @@ class TrainController(object):
         train = Train(speed, start, finish, False, True,
                       False, station.rotation, value,
                       station.x, station.y, 0, 20)
-        '''
-        self.train_build.set_start_station(self.stations[start])
-        self.train_build.set_finish_station(finish)
-        self.train_build.set_bool_values(False, True, False)
-        self.train_build.set_value(value)
-        self.train_build.set_speed(speed)
-        self.train_build.set_animation(0)
-        self.train_build.set_time(20)
-        '''
         self.trains.append(train)
 
     def t_enter(self, (x, y)):
