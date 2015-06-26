@@ -36,6 +36,7 @@ class Game(State):
         :return:
         """
         score_font = pygame.font.Font(None, 36)
+        number_font = pygame.font.Font(None, 25)
         if self.map.train_in_state >= self.max_trains:
             s = pygame.Surface((640, 512))
             s.set_alpha(35)
@@ -43,6 +44,8 @@ class Game(State):
             self.surf.blit(s, (0, 0))
             text_c = score_font.render("LEVEL COMPLITED !", 10, black)
             self.surf.blit(text_c, (200, 300))
+            text_c = score_font.render("SCORE : "+str(self.map.map_score), 10, black)
+            self.surf.blit(text_c, (200, 350))
             self.end = True
         elif self.map.crash >= self.max_crash:
             s = pygame.Surface((640, 512))
@@ -60,8 +63,16 @@ class Game(State):
                     image = self.map.get_image((col, row))
                     self.surf.blit(image, (col*64, row*64))
                     if self.map.get_id((col, row)) == 9:
-                        text = score_font.render(str(self.map.get_station_num((col, row))), 1, white)
-                        self.surf.blit(text, (col*64, row*64))
+                        station_num = self.map.get_station_num((col, row))
+                        text = number_font.render(str(station_num), 1, white)
+                        if self.map.stations[station_num].rotation == 0:
+                            self.surf.blit(text, (col*64+8, row*64+38))
+                        elif self.map.stations[station_num].rotation == 1:
+                            self.surf.blit(text, (col*64+14, row*64+4))
+                        elif self.map.stations[station_num].rotation == 2:
+                            self.surf.blit(text, (col*64+47, row*64+10))
+                        elif self.map.stations[station_num].rotation == 3:
+                            self.surf.blit(text, (col*64+41, row*64+44))
 
             for i in self.map.train_control.trains:
                 if i.if_moving and i.can_move:

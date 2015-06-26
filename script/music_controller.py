@@ -10,6 +10,7 @@ music_path = os.path.join(local_dir, "sounds", "menu_sound.mp3")
 class MusicController(object):
     def __init__(self):
         self.set_music()
+        self.set_volume(25)
 
     @staticmethod
     def set_music():

@@ -12,7 +12,7 @@ class ListGen(TrainGen):
         self.time = 10
 
     def generate(self, train_num):
-        if self.timer() and train_num < 3:
+        if self.timer() and train_num < 4:
             values = self.train_list_file.readline().split()
             start = values[0]
             finish = values[1]
