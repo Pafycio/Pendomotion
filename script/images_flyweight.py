@@ -1,6 +1,6 @@
-__author__ = 'Pawel'
-
 import os
+
+__author__ = 'Pawel'
 
 
 ''' GLOBAL '''

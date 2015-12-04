@@ -1,4 +1,5 @@
 __author__ = 'Pawel'
+
 from map_part import Part
 from map_mechanic import MapMechanic
 from train_controller import TrainController
