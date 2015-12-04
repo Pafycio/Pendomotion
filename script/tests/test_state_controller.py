@@ -4,7 +4,7 @@ __author__ = 'Pawel'
 import unittest
 from script import main_api
 from script import state_controller
-from script import map
+from script.map import Map
 from script import menu_state
 from script import game_menu_state
 from script import game_state
@@ -14,7 +14,7 @@ from script import create_game_state
 class StateControllerTestCase(unittest.TestCase):
     def setUp(self):
         self.app = main_api.App()
-        self.map1 = map.Map(2)
+        self.map1 = Map(2)
         self.state_ctrl = state_controller.StateController(self.app, self.app._display_surf)
 
     def test_change_state_1(self):

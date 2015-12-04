@@ -30,7 +30,7 @@ class Map(object):
 
     def load_map(self, generator):
         """
-        Load map from file
+        Load map_src from file
         Create Map Mechanic
         Create list of stations
         :return:

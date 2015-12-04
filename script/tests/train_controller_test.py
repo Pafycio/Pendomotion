@@ -2,13 +2,13 @@ __author__ = 'Pawel'
 # -*- coding: utf-8 -*-
 
 import unittest
-from script import map
+from script import map_src
 from script import train_controller
 
 
 class TrainControllerTestCase(unittest.TestCase):
     def setUp(self):
-        self.map = map.Map("2")
+        self.map = map_src.Map("2")
         self.map.load_map(True)
         self.t_control = train_controller.TrainController(self.map, True)
 
@@ -69,7 +69,7 @@ class TrainControllerTestCase(unittest.TestCase):
         self.assertEqual(self.t_control.get_len(), 2)
 
     def test_add_value_1(self):
-        self.assertEqual(self.t_control.map.map_score, 0, "Start with map score 0")
+        self.assertEqual(self.t_control.map.map_score, 0, "Start with map_src score 0")
         self.t_control.add_value_to_score(50)
         self.assertEqual(self.t_control.map.map_score, 50)
         self.t_control.add_value_to_score(50)
