@@ -27,7 +27,7 @@ class ImagesFlyweight(object):
 
         :return:
         """
-        self.type = None
+        self.type = ''
         self.path_state_1 = no_pic
         self.path_state_2 = no_pic
 
@@ -39,26 +39,26 @@ class ImagesFlyweight(object):
         :return:
         """
         self.type = block_type
-        if self.type == 0:
+        if self.type == 'Blank':
             return path_0
-        elif self.type == 1:
+        elif self.type == 'Straight':
             return path_1
-        elif self.type == 2:
+        elif self.type == 'Curve':
             return path_2
-        elif self.type == 3:
+        elif self.type == 'StraightRight':
             if state == 0:
                 return path_3
             elif state == 1:
                 return path_3_1
-        elif self.type == 4:
+        elif self.type == 'StraightLeft':
             if state == 0:
                 return path_4
             elif state == 1:
                 return path_4_1
-        elif self.type == 5:
+        elif self.type == 'Cross':
             if state == 0:
                 return path_5
             elif state == 1:
                 return path_5_1
-        elif self.type == 9:
+        elif 'Station' in self.type:
             return path_9_1

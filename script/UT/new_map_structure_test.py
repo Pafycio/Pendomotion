@@ -10,10 +10,10 @@ class NewMapStructureTestCase(unittest.TestCase):
 
     def test_init(self):
         loader = MapLoader(1)
-        # controlMap = ControlMap()
-        # controlMap.map = loader.get_map()
-        # controlMap.stations = loader.get_stations()
-        # self.assertEquals(len(controlMap.stations), 3)
+        controlMap = ControlMap()
+        controlMap.map = loader.get_map()
+        controlMap.stations = loader.get_stations()
+        self.assertEquals(len(controlMap.stations), 5)
 
 suite = unittest.TestLoader().loadTestsFromTestCase(NewMapStructureTestCase)
 print unittest.TextTestRunner(verbosity=3).run(suite)

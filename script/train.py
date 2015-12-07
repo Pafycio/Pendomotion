@@ -83,6 +83,9 @@ class Train(object):
         else:
             self.speed = 0
 
+    def get_rot(self):
+        return self.direction
+
     def get_pos(self):
         """
         Get position

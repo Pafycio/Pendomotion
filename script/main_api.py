@@ -1,7 +1,6 @@
-__author__ = 'Pawel'
-
 import pygame
 from state_controller import StateController
+__author__ = 'Pawel'
 
 
 class App():
