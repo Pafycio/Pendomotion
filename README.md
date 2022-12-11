@@ -8,4 +8,4 @@ Lib : Pygame
 # How to start
 In folder script run main.py
 
-#Enjoy ;)
+# Enjoy ;)
